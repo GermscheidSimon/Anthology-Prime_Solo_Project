@@ -68,5 +68,5 @@ typings/
 package-lock.json
 
 # ignore media files stored within file directory
-.flac
-.mp3
+*.flac
+*.mp3

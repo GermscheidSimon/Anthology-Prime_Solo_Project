@@ -14,12 +14,12 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Library from '../Library/Library';
+import PlayerControls from '../PlayerControls/PlayerControls'
 
 import './App.css';
 
@@ -94,10 +94,10 @@ class App extends Component {
               component={LandingPage}
               authRedirect="/library"
             />
-
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
+          <PlayerControls />
           <Footer />
         </div>
       </Router>
