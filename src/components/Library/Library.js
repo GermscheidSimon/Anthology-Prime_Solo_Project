@@ -21,9 +21,6 @@ TrackList JSON Structure for Library Component ---
     ]
  */
 class Library extends Component {
-  state = {
-    
-  };
 
   items = [
     {
