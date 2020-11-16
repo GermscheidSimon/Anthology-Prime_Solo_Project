@@ -4,16 +4,16 @@
     display: inline-block;
     color: #f2f2f2;
     padding-left: 10px;
+    align-self: left;
 }
 
 .nav {
-  margin: 0 0 30px;
+  margin: auto;
   background-color: #00acb0;
-  overflow: hidden;
+  display: flex;
 }
 
 .nav-link {
-  float: left;
   color: #f2f2f2;
   background-color: #00acb0;
   text-align: center;
@@ -33,5 +33,6 @@
 }
 
 .nav-right {
-  float: right;
+  margin: auto;
+  margin-left: 20%;
 }
