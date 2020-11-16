@@ -1,0 +1,10 @@
+.PlaylistCardsWrap{
+    display: flex;
+    flex-wrap: wrap;
+}
+.playlist-card{
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    border: 1px solid black;
+}

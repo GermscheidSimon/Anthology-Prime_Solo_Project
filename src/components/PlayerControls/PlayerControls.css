@@ -8,18 +8,17 @@
     background-color: lightgreen;
 }
 .songInfoWrap{
+    margin-left: 1%;
     margin-right: auto;
 }
 .songTitle{
     font-weight: bold;
 }
 .songInfoSecondary{
-    padding-left: 4px;
-}
 
+}
 .songNavigation{
     margin: auto;
-    padding-right: 20%;
 }
 
 .songVolume{

@@ -20,6 +20,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Library from '../Library/Library';
 import RenderPlayerControls from '../RenderPlayerControls/RenderPlayerControls'
+import PlaylistPage from '../PlaylistPage/PlaylistPage'
 
 import './App.css';
 
@@ -63,6 +64,12 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
+            <ProtectedRoute
+              // logged in shows InfoPage else shows LoginPage
+              exact
+              path="/playlists"
+              component={PlaylistPage}
+            />
 
             {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
@@ -94,6 +101,7 @@ class App extends Component {
               component={LandingPage}
               authRedirect="/library"
             />
+            
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
