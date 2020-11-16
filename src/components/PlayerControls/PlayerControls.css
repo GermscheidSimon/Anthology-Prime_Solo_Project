@@ -1,3 +1,33 @@
 .playerControlsWrap{
     display: inline-flex;
+    width: 100%;
+    justify-content: center;
+    vertical-align: top;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    background-color: lightgreen;
 }
+.songInfoWrap{
+    margin-right: auto;
+}
+.songTitle{
+    font-weight: bold;
+}
+.songInfoSecondary{
+    padding-left: 4px;
+}
+
+.songNavigation{
+    margin: auto;
+    padding-right: 20%;
+}
+
+.songVolume{
+    margin: auto;
+}
+.songQueue{
+    margin: auto;
+}
+
+
+

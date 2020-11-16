@@ -13,25 +13,27 @@ class PlayerControls extends Component {
   render() {
     return (
         <div className="playerControlsWrap">
-            <div>
-                <p> title </p>
-                <p> album </p>
-                <p> artist </p>
-                <p> 00:00 // 00:00 </p>
+            <div className="songInfoWrap">
+                <div className="songTitle"> title </div>
+                  <div className="songInfoSecondary">
+                    <div> album </div>
+                    <div> artist </div>
+                    <div> 00:00 // 00:00 </div>
+                  </div>
             </div>
-            <div>
+            <div className="songNavigation">
                 <button>Previous</button>
                 <button>PlayPause</button>
                 <button>NextSong</button>
             </div>
-            <div>
+            <div className="songVolume">
                 <select>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
                 </select>
             </div>
-            <div>
+            <div className="songQueue">
                 <button>Display Song Queue</button>
             </div>
       </div>
