@@ -19,7 +19,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Library from '../Library/Library';
-import PlayerControls from '../PlayerControls/PlayerControls'
+import RenderPlayerControls from '../RenderPlayerControls/RenderPlayerControls'
 
 import './App.css';
 
@@ -97,7 +97,7 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
-          <PlayerControls />
+          <RenderPlayerControls />
           <Footer />
         </div>
       </Router>

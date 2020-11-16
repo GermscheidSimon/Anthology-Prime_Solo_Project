@@ -2,41 +2,38 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name TemplateClass with the name for the new
-// component.
+import './PlayerControls.css'
+
+
 class PlayerControls extends Component {
   state = {
-    isRendered: true,
-    user_id: 0
+    heading: 'Class Component',
   };
-
-  componentDidUpdate = (props, state) => {
-    if (props.store.user.id !== state.user_id) {
-        this.setState({
-            user_id: this.props.store.user.id
-        })
-        this.updateRenderCondition()
-    }   
-  }
-  updateRenderCondition = () => {
-      if (this.props.store.user.id) {
-        this.setState({
-            isRendered: true,
-        })
-      }
-  }
 
   render() {
     return (
-
-      <div>
-          {  this.state.isRendered ?
-            <p>PlayerControls</p>
-          :
-            <p>not isRendered</p>
-          }
+        <div className="playerControlsWrap">
+            <div>
+                <p> title </p>
+                <p> album </p>
+                <p> artist </p>
+                <p> 00:00 // 00:00 </p>
+            </div>
+            <div>
+                <button>Previous</button>
+                <button>PlayPause</button>
+                <button>NextSong</button>
+            </div>
+            <div>
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </div>
+            <div>
+                <button>Display Song Queue</button>
+            </div>
       </div>
     );
   }
