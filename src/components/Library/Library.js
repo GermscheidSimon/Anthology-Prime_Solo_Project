@@ -12,7 +12,7 @@ TrackList JSON Structure for Library Component ---
     library: [ 
         {
         id:  integer
-        title: <song title>,
+        name: <song title>,
         album: <album name>,
         artist: <artist name>,
         length: <song length>

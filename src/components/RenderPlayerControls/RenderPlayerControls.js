@@ -7,6 +7,7 @@ import PlayerControls from '../PlayerControls/PlayerControls'
 /**
  * The player controls need to be on every page when the user is signed into the app if something is playing. This component will determine if the player controls should be on the DOM or not. 
  * 
+ * > this functional component should probably construct a new Player controls, so that PlayerControls doesn't need to use getDerivedStateFromProps on initial mount. 
  */
 const  RenderPlayerControls = (props) => { 
 
@@ -17,7 +18,7 @@ const  RenderPlayerControls = (props) => {
 
            <PlayerControls/> // if the song queue exists, render the controls.
           :
-            <></> // if is playing, don't want to render the controls.
+            <></> // if nothing is playing, don't want to render the controls.
           }
       </div>
     );

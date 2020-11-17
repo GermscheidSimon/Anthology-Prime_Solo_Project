@@ -7,7 +7,7 @@ import './PlayerControls.css'
 /**
  * Player Controls---
  * 
- * The bread and butter of this whole operaitons. 
+ * The bread and butter of this whole operaiton. 
  * 
  *      > The audio tag requires a valid source when it is rendered. this means that the audio component can't exist before the client chooses to play something
  * The way around this is that this component is only rendered when the trackQueue is populated (SEE RenderPlayingControls). 
@@ -21,13 +21,13 @@ import './PlayerControls.css'
  */
 class PlayerControls extends Component {
     state = {
-        currentSong: null, // initial state of component at the begining of lifecycle
-        audioElement: createRef(),
-        trackIsPlaying: true,
-        updateNewTrack: false,
-        currentTime: '00:00',
-        interval: null,
-        locationInPlaylist: 0
+        currentSong: null,         // initial state of component at the begining of lifecycle (ComponentDidUpdate)
+        audioElement: createRef(), // instance of audio ref to manage HTML interactions (see audio tag in render)
+        trackIsPlaying: true,      // state of currently playing track. see (TogglePlayback, ComponentDidUpdate)
+        updateNewTrack: false,     // flag for switching songs  see(ComponentDidUpdate)
+        currentTime: '00:00',      // current time of track see (handleCurrentTime and interval)
+        interval: null,            // used to update DOM as while track is played. see (componentDidMount, handleCurrentTime)
+        locationInPlaylist: 0      // initial location. Updated as next songs play from store.tracklist
     }
 
   // set a initial source before the component is rendered. 
@@ -60,12 +60,9 @@ class PlayerControls extends Component {
         this.setState({
             trackIsPlaying: !this.state.trackIsPlaying,
         })
-
-    
-    
     }
+
     componentDidUpdate = (props, prevstate) => {
-        
         
         if (props.store.currentSong.songDir) {; // need to wait until a source exists 
 
@@ -91,6 +88,7 @@ class PlayerControls extends Component {
                 }
             } 
         }
+
         if (this.state.updateNewTrack === true) { // if the component audio needs to be reloaded
                 console.log('reload audio');
             try {
@@ -117,8 +115,8 @@ class PlayerControls extends Component {
     handleCurrentTime = () => {
     
         let songPosition = this.state.audioElement.current.currentTime
-            let minutes = Math.floor(songPosition / 60) 
-            let seconds = Math.floor(songPosition % 60)
+        let minutes = Math.floor(songPosition / 60) 
+        let seconds = Math.floor(songPosition % 60)
             if (seconds < 10) {
                 seconds = '0' + seconds
             }
@@ -138,7 +136,6 @@ class PlayerControls extends Component {
         clearInterval(this.state.interval)
     }
 
-    
   render() {
 
     let track = this.props.store.currentSong

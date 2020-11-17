@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+// Router middleware
 import {
   HashRouter as Router,
   Route,
@@ -6,21 +8,30 @@ import {
   Switch,
 } from 'react-router-dom';
 
+//
 import { connect } from 'react-redux';
 
+// main app componentes
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+    // Render player controls handles Player controls when user is signed in.
+import RenderPlayerControls from '../RenderPlayerControls/RenderPlayerControls'
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
-import AboutPage from '../AboutPage/AboutPage';
+// linked pages
+    // login required
+import Playlist from '../Playlist/Playlist';
 import InfoPage from '../InfoPage/InfoPage';
+import Library from '../Library/Library';
+import PlaylistPage from '../PlaylistPage/PlaylistPage'
+    // no longin required
 import LandingPage from '../LandingPage/LandingPage';
+import AboutPage from '../AboutPage/AboutPage';
+
+
+// login & register -- 
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'; // client side authorization 
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import Library from '../Library/Library';
-import RenderPlayerControls from '../RenderPlayerControls/RenderPlayerControls'
-import PlaylistPage from '../PlaylistPage/PlaylistPage'
 
 import './App.css';
 
@@ -46,6 +57,12 @@ class App extends Component {
               path="/about"
               component={AboutPage}
             />
+            <ProtectedRoute
+              // if user signed in, allow user to visit a playlist by ID.
+              exact
+              path={`/library/playlist/:id`}
+              component={Playlist} 
+            />
 
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -65,7 +82,7 @@ class App extends Component {
               component={InfoPage}
             />
             <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
+              // logged in shows Playlists nav option. Will display a list of playlists that use has created
               exact
               path="/playlists"
               component={PlaylistPage}
@@ -76,7 +93,7 @@ class App extends Component {
             be taken to the component and path supplied. */}
             <ProtectedRoute
               // with authRedirect:
-              // - if logged in, redirects to "/user"
+              // - if logged in, redirects to "/Library"
               // - else shows LoginPage at /login
               exact
               path="/login"
@@ -85,7 +102,7 @@ class App extends Component {
             />
             <ProtectedRoute
               // with authRedirect:
-              // - if logged in, redirects to "/user"
+              // - if logged in, redirects to "/library"
               // - else shows RegisterPage at "/registration"
               exact
               path="/registration"
@@ -94,7 +111,7 @@ class App extends Component {
             />
             <ProtectedRoute
               // with authRedirect:
-              // - if logged in, redirects to "/user"
+              // - if logged in, redirects to "/library"
               // - else shows LandingPage at "/home"
               exact
               path="/home"
@@ -103,7 +120,7 @@ class App extends Component {
             />
             
             {/* If none of the other routes matched, we will show a 404. */}
-            <Route render={() => <h1>404</h1>} />
+            <Route render={() => <h1>404. Either Page does not exist, or was unable to handle your request.</h1>} />
           </Switch>
           <RenderPlayerControls />
           <Footer />

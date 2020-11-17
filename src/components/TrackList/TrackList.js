@@ -16,7 +16,7 @@ import TrackItem from '../TrackItem/TrackItem'
  *  Track JSON :: 
       {
         id:  integer
-        title: <song title>,
+        name: <song title>,
         album: <album name>,
         artist: <artist name>,
         length: <song length>
