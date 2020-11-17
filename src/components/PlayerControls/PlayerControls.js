@@ -67,22 +67,36 @@ class PlayerControls extends Component {
     componentDidUpdate = (props, prevstate) => {
         
         
-        if (props.store.currentSong.songDir) {;
-            if (props.store.currentSong.songDir !== prevstate.currentSong) {
+        if (props.store.currentSong.songDir) {; // need to wait until a source exists 
+
+            if (props.store.currentSong.songDir !== prevstate.currentSong) { // if the current song to play was changed
                 
                 console.log('song dir changed', props.store.currentSong.songDir, prevstate.currentSong);
-                 this.setState({
-                    currentSong: props.store.currentSong.songDir,
-                    updateNewTrack: true
-                }); 
+                if (prevstate.trackIsPlaying) {
+                    this.setState({
+                        currentSong: props.store.currentSong.songDir, // update the song source
+                        updateNewTrack: true                          // flag the componenent to reload audio 
+                    }); 
+                } else if (prevstate.trackIsPlaying === false) {
+                    this.setState({
+                        currentSong: props.store.currentSong.songDir, // update the song source
+                        updateNewTrack: true                          // flag the componenent to reload audio 
+                    }); 
+
+                    try {  // toggle playback. The track was selected, so the song should play. 
+                        this.togglePlayback();
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
             } 
         }
-        if (this.state.updateNewTrack === true) {
+        if (this.state.updateNewTrack === true) { // if the component audio needs to be reloaded
                 console.log('reload audio');
             try {
                 this.handleSongSwitch();
                 this.setState({
-                    updateNewTrack: false
+                    updateNewTrack: false 
                 })
             } catch (error) {
                 console.log(error);
@@ -123,6 +137,8 @@ class PlayerControls extends Component {
     componentWillUnmount = () => {
         clearInterval(this.state.interval)
     }
+
+    
   render() {
 
     let track = this.props.store.currentSong
