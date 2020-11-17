@@ -24,7 +24,9 @@ class PlayerControls extends Component {
         tracklist: [],
         currentSong: null, // initial state of component at the begining of lifecycle
         audioElement: createRef(),
-        trackIsPlaying: true
+        trackIsPlaying: true,
+        currentTime: '00:00',
+        interval: null
     }
 
   // set a initial source before the component is rendered. 
@@ -41,6 +43,10 @@ class PlayerControls extends Component {
     // once the component is rendered, begin playing back the tracklist
     componentDidMount = () => {
         this.state.audioElement.current.play()
+        let intervalID = setInterval(this.handleCurrentTime, 1000);
+        this.setState({
+            interval: intervalID
+        })
     }
 
     // toggle play() and pause() options, and set current playback state
@@ -50,19 +56,22 @@ class PlayerControls extends Component {
         } else {
             this.state.audioElement.current.play()
         }
-        
         this.setState({
             trackIsPlaying: !this.state.trackIsPlaying
         })
+
+       
     }
     handleCurrentTime = () => {
-        if (this.state.audioElement.current) {
-            return this.state.audioElement.current.currentTime
-        } else {
-            return '00:00'
-        }
+            
+             this.setState({
+                 currentTime: this.state.audioElement.current.currentTime
+             })
+        console.log('interval');
     }
-
+    componentWillUnmount = () => {
+        clearInterval(this.state.interval)
+    }
   render() {
     return (
         <div className="playerControlsWrap">
@@ -75,7 +84,7 @@ class PlayerControls extends Component {
                   <div className="songInfoSecondary">
                     <div> album </div>
                     <div> artist </div>
-                    <div>{this.handleCurrentTime()} // 00:00 </div>
+                    <div>{this.state.currentTime} // 00:00 </div>
                   </div>
             </div>
             <div className="songNavigation">
