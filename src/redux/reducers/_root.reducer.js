@@ -6,6 +6,7 @@ import libraryReducer from './library.reducer'
 import tracklist from './tracklist.reducer'
 import currentSong from './currentSong.reducer'
 import playlist from './playlist.reducer'
+import playlists from './playlists.reducer'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   libraryReducer,
   tracklist,
   currentSong,
-  playlist
+  playlist,
+  playlists
 });
 
 export default rootReducer;

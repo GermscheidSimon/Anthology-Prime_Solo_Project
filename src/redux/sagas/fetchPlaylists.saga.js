@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* fetchPlaylists(action) {
     try { // fetch specfic song. this will return ALL data including route to audio file
-      console.log('fetch playlist with ID of: ', action.payload);
+      console.log('fetch playlist');
       
       const playlistsData = yield axios.get(`api/playlist/`)
         // add track to the currently playing tracklist 
@@ -19,8 +19,8 @@ function* fetchPlaylists(action) {
     }
   }
 
-  function* fetchplaylistDetailsSaga() {
+  function* PlaylistsSags() {
       yield takeLatest('FETCH_PLAYLISTS', fetchPlaylists)
     }
   
-  export default fetchplaylistDetailsSaga;
+  export default PlaylistsSags;

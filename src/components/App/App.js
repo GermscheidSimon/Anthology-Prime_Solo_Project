@@ -69,7 +69,6 @@ class App extends Component {
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
             <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
               exact
               path="/library"
               component={Library}
@@ -84,7 +83,7 @@ class App extends Component {
             <ProtectedRoute
               // logged in shows Playlists nav option. Will display a list of playlists that use has created
               exact
-              path="/playlists"
+              path="/library/playlists"
               component={PlaylistPage}
             />
 

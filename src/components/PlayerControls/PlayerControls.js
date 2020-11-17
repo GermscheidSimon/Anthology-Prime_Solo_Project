@@ -64,7 +64,7 @@ class PlayerControls extends Component {
 
     componentDidUpdate = (props, prevstate) => {
         
-        if (props.store.currentSong.songDir) {; // need to wait until a source exists 
+        if (props.store.currentSong.songDir) { // need to wait until a source exists 
 
             if (props.store.currentSong.songDir !== prevstate.currentSong) { // if the current song to play was changed
                 

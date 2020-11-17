@@ -18,16 +18,14 @@ import TrackList from '../TrackList/TrackList'
 
 function Playlist(props) {
 
-  useEffect(() => fetchPlaylistDetails(), []);
+  useEffect(() => fetchPlaylistDetails(), [props.match.params]);
     
   const fetchPlaylistDetails = () => {
-      console.log(props);
       
     props.dispatch({
         type: "FETCH_PLAYLIST_DETAILS",
         payload: props.match.params
     }); 
-
   }
   const parsePlaylistData = () => {
         
@@ -48,6 +46,7 @@ function Playlist(props) {
 
   return (
     <div>
+       v
        { props.store.playlist && 
 
         <TrackList trackList={parsePlaylistData()}/>

@@ -11,7 +11,8 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const songRouter = require('./routes/song.router')
-const playlistRouter = require('./routes/playlist.router.js')
+const playlistRouter = require('./routes/playlist.router.js');
+const { rejectUnauthenticated } = require('./modules/authentication-middleware');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,7 +32,7 @@ app.use('/api/playlist', playlistRouter)
 
 // Serve static files
 app.use(express.static('build'));
-app.use(express.static('server/FS_songs'))
+app.use(rejectUnauthenticated, express.static( 'server/FS_songs')) 
 
 // App Set //
 const PORT = process.env.PORT || 5000;
