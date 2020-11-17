@@ -21,18 +21,18 @@ function* fetchUserLibrary() {
 
 function* fetchSong(action) {
   try { // fetch specfic song. this will return ALL data including route to audio file
-    console.log('fetch song', action.payload);
-    
-    const songData = yield axios.get(`api/song/${action.payload}`)
-      // add track to the currently playing tracklist 
+      console.log('fetch song', action.payload);
+      
+      const songData = yield axios.get(`api/song/${action.payload}`)
+        // add track to the currently playing tracklist 
     yield put({
-        type: "SET_TRACKLIST", 
-        payload: songData.data
-    });
+          type: "SET_TRACKLIST", 
+          payload: songData.data
+      });
     yield put({
-      type: "SET_CURRENT_SONG",
-      payload: songData.data[0]
-    })
+        type: "SET_CURRENT_SONG",
+        payload: songData.data[0]
+      })
   } catch (error) {
       // through client error if unsuccessful
     console.log('Failed to fetch song Library',error);

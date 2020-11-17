@@ -11,6 +11,9 @@
   margin: auto;
   background-color: #00acb0;
   display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .nav-link {

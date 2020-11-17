@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 
 // main app componentes
 import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
     // Render player controls handles Player controls when user is signed in.
 import RenderPlayerControls from '../RenderPlayerControls/RenderPlayerControls'
 
@@ -23,6 +22,7 @@ import Playlist from '../Playlist/Playlist';
 import InfoPage from '../InfoPage/InfoPage';
 import Library from '../Library/Library';
 import PlaylistPage from '../PlaylistPage/PlaylistPage'
+import AddNewTrack from '../AddNewTrack/AddNewTrack'
     // no longin required
 import LandingPage from '../LandingPage/LandingPage';
 import AboutPage from '../AboutPage/AboutPage';
@@ -44,7 +44,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="appMain">
           <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -62,6 +62,12 @@ class App extends Component {
               exact
               path={`/library/playlist/:id`}
               component={Playlist} 
+            />
+              <ProtectedRoute
+              // if user signed in, allow user to visit a playlist by ID.
+              exact
+              path={`/addNewTrack`}
+              component={AddNewTrack} 
             />
 
             {/* For protected routes, the view could show one of several things on the same route.
@@ -122,7 +128,6 @@ class App extends Component {
             <Route render={() => <h1>404. Either Page does not exist, or was unable to handle your request.</h1>} />
           </Switch>
           <RenderPlayerControls />
-          <Footer />
         </div>
       </Router>
     );

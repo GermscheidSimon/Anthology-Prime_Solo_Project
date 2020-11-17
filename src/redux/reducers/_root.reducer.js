@@ -15,13 +15,13 @@ import playlists from './playlists.reducer'
 // Lets make a bigger object for our store, with the objects from our reducers.
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
-  errors, // contains registrationMessage and loginMessage
-  user, // will have an id and username if someone is logged in
-  libraryReducer,
-  tracklist,
-  currentSong,
-  playlist,
-  playlists
+  errors,         // contains registrationMessage and loginMessage
+  user,           // will have an id and username if someone is logged in
+  libraryReducer, // contains user library array from fetchFromSongs
+  tracklist,      // stores track queue when playing songs
+  currentSong,    // state of current track being played 
+  playlist,       // details list for currect playlist 
+  playlists       // list of playlists
 });
 
 export default rootReducer;
