@@ -21,7 +21,6 @@ import './PlayerControls.css'
  */
 class PlayerControls extends Component {
     state = {
-        tracklist: [],
         currentSong: null, // initial state of component at the begining of lifecycle
         audioElement: createRef(),
         trackIsPlaying: true,
@@ -46,6 +45,10 @@ class PlayerControls extends Component {
         let intervalID = setInterval(this.handleCurrentTime, 1000);
         this.setState({
             interval: intervalID
+        });
+        this.props.dispatch({
+            type: "SET_CURRENT_SONG",
+            payload: this.props.store.tracklist[0]
         })
     }
 
@@ -62,10 +65,22 @@ class PlayerControls extends Component {
 
        
     }
+    // this is tied to this componenents interval on component did mount. this will update the song position clock 
     handleCurrentTime = () => {
-            
+    
+        let songPosition = this.state.audioElement.current.currentTime
+            let minutes = Math.floor(songPosition / 60) 
+            let seconds = Math.floor(songPosition % 60)
+            if (seconds < 10) {
+                seconds = '0' + seconds
+            }
+            if (minutes < 10) {
+                minutes = '0' + minutes
+            }
+
+        let time = `${minutes}:${seconds}`;
              this.setState({
-                 currentTime: this.state.audioElement.current.currentTime
+                 currentTime: time
              })
         console.log('interval');
     }
@@ -73,6 +88,8 @@ class PlayerControls extends Component {
         clearInterval(this.state.interval)
     }
   render() {
+
+    let track = this.props.store.currentSong
     return (
         <div className="playerControlsWrap">
             <audio ref={this.state.audioElement}>
@@ -80,11 +97,11 @@ class PlayerControls extends Component {
             </audio>
 
             <div className="songInfoWrap">
-                <div className="songTitle"> title </div>
+                <div className="songTitle"> {track.name} </div>
                   <div className="songInfoSecondary">
-                    <div> album </div>
-                    <div> artist </div>
-                    <div>{this.state.currentTime} // 00:00 </div>
+                    <div> {track.album} </div>
+                    <div> {track.artist} </div>
+                    <div>{this.state.currentTime} - {track.length}</div>
                   </div>
             </div>
             <div className="songNavigation">
