@@ -5,6 +5,30 @@ const router = express.Router();
 /**
  * GET route template
  */
+
+router.get('/', (req, res) => {
+    if (req.isAuthenticated) {
+        const queryText = `
+                SELECT * FROM "playlists"
+                    WHERE "user_id" = $1`
+        pool.query(queryText, [req.user.id])
+
+        .then( (response) => {
+            console.log('request successful');
+            console.log(`returned ${response.rows}`);
+            res.send(response.rows)
+        })
+
+        .catch( (error) => {
+            console.log(error);
+            res.sendStatus(500)
+        })
+    } else {
+        res.sendStatus(500)
+    }
+  });
+
+
 router.get('/:id', (req, res) => {
     
    if (req.isAuthenticated) {

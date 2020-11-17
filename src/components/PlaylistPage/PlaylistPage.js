@@ -6,6 +6,8 @@ import './PlaylistPage.css'
 
 class PlaylistPage extends Component {
 
+    
+
   render() {
     return (
       <div className="PlaylistCardsWrap">
