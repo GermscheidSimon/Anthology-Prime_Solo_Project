@@ -24,8 +24,10 @@ class PlayerControls extends Component {
         currentSong: null, // initial state of component at the begining of lifecycle
         audioElement: createRef(),
         trackIsPlaying: true,
+        updateNewTrack: false,
         currentTime: '00:00',
-        interval: null
+        interval: null,
+        locationInPlaylist: 0
     }
 
   // set a initial source before the component is rendered. 
@@ -46,10 +48,6 @@ class PlayerControls extends Component {
         this.setState({
             interval: intervalID
         });
-        this.props.dispatch({
-            type: "SET_CURRENT_SONG",
-            payload: this.props.store.tracklist[0]
-        })
     }
 
     // toggle play() and pause() options, and set current playback state
@@ -60,11 +58,47 @@ class PlayerControls extends Component {
             this.state.audioElement.current.play()
         }
         this.setState({
-            trackIsPlaying: !this.state.trackIsPlaying
+            trackIsPlaying: !this.state.trackIsPlaying,
         })
 
-       
+    
+    
     }
+    componentDidUpdate = (props, prevstate) => {
+        
+        
+        if (props.store.currentSong.songDir) {;
+            if (props.store.currentSong.songDir !== prevstate.currentSong) {
+                
+                console.log('song dir changed', props.store.currentSong.songDir, prevstate.currentSong);
+                 this.setState({
+                    currentSong: props.store.currentSong.songDir,
+                    updateNewTrack: true
+                }); 
+            } 
+        }
+        if (this.state.updateNewTrack === true) {
+                console.log('reload audio');
+            try {
+                this.handleSongSwitch();
+                this.setState({
+                    updateNewTrack: false
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+        
+
+
+    handleSongSwitch = () => {
+        this.state.audioElement.current.pause();
+        this.state.audioElement.current.load();
+        this.state.audioElement.current.play();
+    }
+
+
     // this is tied to this componenents interval on component did mount. this will update the song position clock 
     handleCurrentTime = () => {
     
@@ -83,6 +117,8 @@ class PlayerControls extends Component {
                  currentTime: time
              })
         console.log('interval');
+        console.log(this.state);
+        
     }
     componentWillUnmount = () => {
         clearInterval(this.state.interval)
@@ -102,7 +138,7 @@ class PlayerControls extends Component {
                     <div> {track.album} </div>
                     <div> {track.artist} </div>
                     <div>{this.state.currentTime} - {track.length}</div>
-                  </div>
+                </div>
             </div>
             <div className="songNavigation">
                 <button>Previous</button>
@@ -112,7 +148,7 @@ class PlayerControls extends Component {
                     :
                     <button onClick={() => this.togglePlayback()}>Play</button>
                 }
-                <button>NextSong</button>
+                <button onClick={this.handleSongSwitch}>reload source</button>
             </div>
             <div className="songVolume">
                 <select>

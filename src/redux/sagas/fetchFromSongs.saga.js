@@ -29,7 +29,10 @@ function* fetchSong(action) {
         type: "SET_TRACKLIST", 
         payload: songData.data
     });
-
+    yield put({
+      type: "SET_CURRENT_SONG",
+      payload: songData.data[0]
+    })
   } catch (error) {
       // through client error if unsuccessful
     console.log('Failed to fetch song Library',error);

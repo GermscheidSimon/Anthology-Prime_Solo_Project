@@ -42,7 +42,7 @@ class TrackList extends Component {
           <tbody>
             {tracks.map(track => {
                 return <TrackItem track={track} key={track.id} />
-        })}
+            })}
           </tbody>
       </table> 
     );
