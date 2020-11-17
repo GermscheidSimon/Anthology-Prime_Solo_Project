@@ -1,29 +1,91 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import './PlayerControls.css'
 
-
+/**
+ * Player Controls---
+ * 
+ * The bread and butter of this whole operaitons. 
+ * 
+ *      > The audio tag requires a valid source when it is rendered. this means that the audio component can't exist before the client chooses to play something
+ * The way around this is that this component is only rendered when the trackQueue is populated (SEE RenderPlayingControls). 
+ * 
+ *      > The audio tag requires some way to call it. Per React documentation (https://reactjs.org/docs/refs-and-the-dom.html) it is okay here to use an instance of a ref.
+ * 
+ *      > This component also uses getDerivedStateFromProps before it is mounted/rendered. This allows the component to fetch the first track in the trackQueue and begin playback 
+ * once it is mounted
+ * 
+ * 
+ */
 class PlayerControls extends Component {
-  state = {
-    heading: 'Class Component',
-  };
+    state = {
+        tracklist: [],
+        currentSong: null, // initial state of component at the begining of lifecycle
+        audioElement: createRef(),
+        trackIsPlaying: true
+    }
+
+  // set a initial source before the component is rendered. 
+    static getDerivedStateFromProps = (props, state) => {
+        if (state.currentSong !== props.store.tracklist[0].songDir) {
+            return {
+                currentSong: props.store.tracklist[0].songDir
+            } 
+        } else {
+            return null;
+        }
+    }
+
+    // once the component is rendered, begin playing back the tracklist
+    componentDidMount = () => {
+        this.state.audioElement.current.play()
+    }
+
+    // toggle play() and pause() options, and set current playback state
+    togglePlayback = () => {
+        if (this.state.trackIsPlaying) {
+            this.state.audioElement.current.pause()
+        } else {
+            this.state.audioElement.current.play()
+        }
+        
+        this.setState({
+            trackIsPlaying: !this.state.trackIsPlaying
+        })
+    }
+    handleCurrentTime = () => {
+        if (this.state.audioElement.current) {
+            return this.state.audioElement.current.currentTime
+        } else {
+            return '00:00'
+        }
+    }
 
   render() {
     return (
         <div className="playerControlsWrap">
+            <audio ref={this.state.audioElement}>
+                <source src={this.state.currentSong}/>
+            </audio>
+
             <div className="songInfoWrap">
                 <div className="songTitle"> title </div>
                   <div className="songInfoSecondary">
                     <div> album </div>
                     <div> artist </div>
-                    <div> 00:00 // 00:00 </div>
+                    <div>{this.handleCurrentTime()} // 00:00 </div>
                   </div>
             </div>
             <div className="songNavigation">
                 <button>Previous</button>
-                <button>PlayPause</button>
+                {
+                    this.state.trackIsPlaying ?
+                    <button onClick={() => this.togglePlayback()}>Pause</button>
+                    :
+                    <button onClick={() => this.togglePlayback()}>Play</button>
+                }
                 <button>NextSong</button>
             </div>
             <div className="songVolume">

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
+import TrackItem from '../TrackItem/TrackItem'
+
 /**
  * Track List component. Flexible compoennt for displying track lists on various pages on the site.  
  *  >> Used in --
@@ -18,7 +20,6 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
         album: <album name>,
         artist: <artist name>,
         length: <song length>
-        songDir: <url to song  (http://servername:5000/server/FS_songs/<songFileName>)>
       }
  * 
  */
@@ -40,15 +41,7 @@ class TrackList extends Component {
 {/* .map through tracklist props array and create a table row for eac item. */}
           <tbody>
             {tracks.map(track => {
-                return(
-                <tr>
-                  <td>{track.id}</td>
-                  <td>{track.title}</td>
-                  <td>{track.artist}</td>
-                  <td>{track.album}</td>
-                  <td>{track.length}</td>
-                </tr>
-            )  
+                return <TrackItem track={track} key={track.id} />
         })}
           </tbody>
       </table> 

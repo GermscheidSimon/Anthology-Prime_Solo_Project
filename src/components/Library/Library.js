@@ -16,7 +16,6 @@ TrackList JSON Structure for Library Component ---
         album: <album name>,
         artist: <artist name>,
         length: <song length>
-        songDir: <url to song  (http://servername:5000/server/FS_songs/<songFileName>)>
         }
     ]
  */
@@ -28,27 +27,35 @@ class Library extends Component {
         title: 'Bohemian rhapsody',
         album: 'A Night At The Opera',
         artist: 'queen',
-        length: '5:59',
-        songDir: 'http://localhost:5000/filepath'
+        length: '5:59'
     },
     {
         id:  2,
         title: 'Bohemian rhapsody',
         album: 'A Night At The Opera',
         artist: 'queen',
-        length: '5:59',
-        songDir: 'http://localhost:5000/filepath'
+        length: '5:59'
     }
   ]
 
+  componentDidMount = () => {
+      this.getSongLibrary();
+  }
+  getSongLibrary = () => {      
+      this.props.dispatch({
+          type: "FETCH_USER_LIBRARY"
+      });
+  }
+
   render() {
+      const songLibrary = this.props.store.libraryReducer
     return (
       <div>
           <div>
                 Your Library -- 
           </div>
 
-          <TrackList trackList={this.items}/>
+          <TrackList trackList={songLibrary}/>
       </div>
     );
   }
