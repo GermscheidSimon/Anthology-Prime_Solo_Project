@@ -19,8 +19,8 @@ function* fetchPlaylists(action) {
     }
   }
 
-  function* PlaylistsSags() {
+  function* PlaylistsSaga() {
       yield takeLatest('FETCH_PLAYLISTS', fetchPlaylists)
     }
   
-  export default PlaylistsSags;
+  export default PlaylistsSaga;

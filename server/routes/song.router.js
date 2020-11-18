@@ -1,6 +1,8 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const fileUpload = require('express-fileupload')
+
 
 
 /**
@@ -63,5 +65,24 @@ router.get('/', (req, res) => {
             res.sendStatus(403);
     }            
 });
+
+/**
+ * POST new track(s)
+ */
+router.post('/', fileUpload({ safeFileNames: true }), (req, res) => {
+    console.log('POST /api/song requested');
+    if(req.isAuthenticated()) {
+
+        console.log(req.files.first);
+        console.log(req.files.info);
+        
+        // console.log(req.files);
+        
+        
+        res.sendStatus(200);
+    } else {
+        res.sendStatus(403);
+    }
+})
 
 module.exports = router;

@@ -6,6 +6,7 @@ import userSaga from './user.saga';
 import fetchLibrarySaga from './fetchFromSongs.saga'
 import fetchplaylistDetailsSaga from './fetchPlaylistDetails.saga'
 import PlaylistsSags from './fetchPlaylists.saga'
+import uploadTrackSaga from './UploadNewTrack.saga'
 
 
 // rootSaga is the primary saga.
@@ -17,12 +18,14 @@ import PlaylistsSags from './fetchPlaylists.saga'
 // and login triggers setting the user
 export default function* rootSaga() {
   yield all([
-    loginSaga(), // login saga is now registered
+//Login and Registration operations
+    loginSaga(), 
     registrationSaga(),
     userSaga(),
-
+//Application operations
     fetchLibrarySaga(),
     fetchplaylistDetailsSaga(),
-    PlaylistsSags()
+    PlaylistsSags(),
+    uploadTrackSaga()
   ]);
 }

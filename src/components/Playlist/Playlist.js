@@ -46,7 +46,6 @@ function Playlist(props) {
 
   return (
     <div>
-       v
        { props.store.playlist && 
 
         <TrackList trackList={parsePlaylistData()}/>
