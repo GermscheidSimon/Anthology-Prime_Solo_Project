@@ -63,7 +63,8 @@ class PlayerControls extends Component {
                     trackQueue: props.trackQueue,
                     currentSong: props.trackQueue[0],
                     locationInPlaylist: 0,
-                    updateNewTrack: true
+                    updateNewTrack: true,
+                    trackIsPlaying: true
                 }));
     
             }    
