@@ -28,7 +28,8 @@ class PlayerControls extends Component {
         currentTime: '00:00',      // current time of track see (handleCurrentTime and interval)
         interval: null,            // used to update DOM as while track is played. see (componentDidMount, handleCurrentTime)
         locationInPlaylist: 0,      // initial location. Updated as next songs play from store.tracklist
-        trackqueue: []
+        trackqueue: [],
+        volume: 0            
     }
 
     // once the component is rendered, begin playing back the tracklist
@@ -141,6 +142,30 @@ class PlayerControls extends Component {
             }
         } 
     }
+    handlePrevTrack = () => {
+        
+        if (this.state.trackQueue.length > 1 && this.state.locationInPlaylist - 1 > 0) {
+            console.log('doing a thing');
+            
+            try {
+                this.setState(() => ({
+                    locationInPlaylist: this.state.locationInPlaylist - 1,
+                    currentSong: this.state.trackQueue[this.state.locationInPlaylist - 1],
+                }));
+                
+            } catch (error) {
+                console.log(error);
+            } finally {
+                this.handleSongSwitch()
+                console.log(this.state.locationInPlaylist);
+                
+            }
+        } 
+    }
+    // this function intakes the new value from the slider, and converts it into a percent to plug into the audio volume property
+    adjustVolume = (event) => {
+        this.state.audioElement.current.volume = event.target.value / 100;
+    }
 
   render() {
 
@@ -165,7 +190,7 @@ class PlayerControls extends Component {
                 </div>
             </div>
             <div className="songNavigation">
-                <button>Previous</button>
+                <button onClick={this.handlePrevTrack}>Previous</button>
                 {
                     this.state.trackIsPlaying ?
                     <button onClick={() => this.togglePlayback()}>Pause</button>
@@ -174,12 +199,9 @@ class PlayerControls extends Component {
                 }
                 <button onClick={this.handNextTrack}>Next</button>
             </div>
+            {/** --Volume Control-- range slider. audio element volume must be a valume between 0 and 1. see adjustvolume */}
             <div className="songVolume">
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
+                <input onChange={(event) =>this.adjustVolume(event)} type="range" min="1" max="100" />
             </div>
             <div className="songQueue">
                 <button>Display Song Queue</button>

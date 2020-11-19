@@ -18,7 +18,7 @@ function* fetchUserLibrary() {
     alert('Failed to Load Library! Please try again.')
   }
 }
-
+// when a single track is selected this will update tracklist (song queue) with just the one song. It will remain an array of one item
 function* fetchSong(action) {
   try { // fetch specfic song. this will return ALL data including route to audio file
       console.log('fetch song', action.payload);

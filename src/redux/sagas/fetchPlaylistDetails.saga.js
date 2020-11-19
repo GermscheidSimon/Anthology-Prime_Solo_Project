@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-
+// fetches playlist details by ID when a playlist Component is loaded
 function* fetchplaylist(action) {
     try { // fetch specfic song. this will return ALL data including route to audio file
       console.log('fetch playlist with ID of: ', action.payload);
@@ -18,6 +18,8 @@ function* fetchplaylist(action) {
       alert('Failed to Load playlist information! Please try again.')
     }
   }
+// When the play button is selected in a playlist, this will set the current playlist info into the tracklist (song queue)
+// when this change happens PlayerControls will run though ComponentDidUpdate to re-load the audio element
 function* playPlaylist(action) {
     try{
         yield put({

@@ -10,6 +10,8 @@ function* uploadTrack(action) {
             headers: { 'content-type': 'multipart/form-data' } // let the receivving server know the file is broken up
         }
         
+        // the parameters here help identify the song. they come from the AddNewTrack state when the song is dispatched here.
+        // action.payload.file represents the FormData object being passed as a multipart data (buffered)
         yield axios({
             method: "POST",
             url: `/api/song/${action.payload.trackInfo.artist}/${action.payload.trackInfo.album}/${action.payload.trackInfo.name}`,
