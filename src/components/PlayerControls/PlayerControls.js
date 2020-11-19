@@ -21,33 +21,25 @@ import './PlayerControls.css'
  */
 class PlayerControls extends Component {
     state = {
-        currentSong: null,         // initial state of component at the begining of lifecycle (ComponentDidUpdate)
+        currentSong: '/',         // initial state of component at the begining of lifecycle (ComponentDidUpdate)
         audioElement: createRef(), // instance of audio ref to manage HTML interactions (see audio tag in render)
-        trackIsPlaying: true,      // state of currently playing track. see (TogglePlayback, ComponentDidUpdate)
+        trackIsPlaying: false,      // state of currently playing track. see (TogglePlayback, ComponentDidUpdate)
         updateNewTrack: false,     // flag for switching songs  see(ComponentDidUpdate)
         currentTime: '00:00',      // current time of track see (handleCurrentTime and interval)
         interval: null,            // used to update DOM as while track is played. see (componentDidMount, handleCurrentTime)
-        locationInPlaylist: 0      // initial location. Updated as next songs play from store.tracklist
-    }
-
-  // set a initial source before the component is rendered. 
-    static getDerivedStateFromProps = (props, state) => {
-        if (state.currentSong !== props.store.tracklist[0].songDir) {
-            return {
-                currentSong: props.store.tracklist[0].songDir
-            } 
-        } else {
-            return null;
-        }
+        locationInPlaylist: 0,      // initial location. Updated as next songs play from store.tracklist
+        trackqueue: []
     }
 
     // once the component is rendered, begin playing back the tracklist
     componentDidMount = () => {
-        this.state.audioElement.current.play()
+        console.log(this.props.trackQueue, this.state);
+        
         let intervalID = setInterval(this.handleCurrentTime, 1000);
-        this.setState({
-            interval: intervalID
-        });
+        this.setState(() => ({
+            interval: intervalID,
+            locationInPlaylist: 0,
+        }));
     }
 
     // toggle play() and pause() options, and set current playback state
@@ -62,46 +54,39 @@ class PlayerControls extends Component {
         })
     }
 
-    componentDidUpdate = (props, prevstate) => {
-        
-        if (props.store.currentSong.songDir) { // need to wait until a source exists 
-
-            if (props.store.currentSong.songDir !== prevstate.currentSong) { // if the current song to play was changed
+    componentDidUpdate = () => {
+        try {
+            if (this.props.trackQueue !== this.state.trackQueue) {
+                console.log('songswitch');
                 
-                console.log('song dir changed', props.store.currentSong.songDir, prevstate.currentSong);
-                if (prevstate.trackIsPlaying) {
+                this.setState((state, props) => ({
+                    trackQueue: props.trackQueue,
+                    currentSong: props.trackQueue[0],
+                    locationInPlaylist: 0,
+                    updateNewTrack: true
+                }));
+    
+            }    
+        } catch (error) {
+            console.log(error);
+        } finally{ 
+                if (this.state.updateNewTrack === true) { // if the component audio needs to be reloaded
+                    console.log('reload audio');
+                    console.log('state', this.state);
+                    
+                try {
+                    this.handleSongSwitch();
                     this.setState({
-                        currentSong: props.store.currentSong.songDir, // update the song source
-                        updateNewTrack: true                          // flag the componenent to reload audio 
-                    }); 
-                } else if (prevstate.trackIsPlaying === false) {
-                    this.setState({
-                        currentSong: props.store.currentSong.songDir, // update the song source
-                        updateNewTrack: true                          // flag the componenent to reload audio 
-                    }); 
-
-                    try {  // toggle playback. The track was selected, so the song should play. 
-                        this.togglePlayback();
-                    } catch (error) {
-                        console.log(error);
-                    }
+                        updateNewTrack: false 
+                    })
+                } catch (error) {
+                    console.log(error);
                 }
-            } 
-        }
-
-        if (this.state.updateNewTrack === true) { // if the component audio needs to be reloaded
-                console.log('reload audio');
-            try {
-                this.handleSongSwitch();
-                this.setState({
-                    updateNewTrack: false 
-                })
-            } catch (error) {
-                console.log(error);
             }
+
         }
-    }
         
+    }
 
 
     handleSongSwitch = () => {
@@ -135,14 +120,39 @@ class PlayerControls extends Component {
     componentWillUnmount = () => {
         clearInterval(this.state.interval)
     }
+    handNextTrack = () => {
+        
+        if (this.state.trackQueue.length > 1 && this.state.locationInPlaylist + 1 < this.state.trackQueue.length) {
+            console.log('doing a thing');
+            
+            try {
+                this.setState(() => ({
+                    locationInPlaylist: this.state.locationInPlaylist + 1,
+                    currentSong: this.state.trackQueue[this.state.locationInPlaylist + 1],
+                }));
+                
+            } catch (error) {
+                console.log(error);
+            } finally {
+                this.handleSongSwitch()
+                console.log(this.state.locationInPlaylist);
+                
+            }
+        } 
+    }
 
   render() {
 
-    let track = this.props.store.currentSong
+    let track = this.state.currentSong
     return (
         <div className="playerControlsWrap">
-            <audio ref={this.state.audioElement}>
-                <source src={this.state.currentSong}/>
+
+            <audio 
+                key={track.id} 
+                ref={this.state.audioElement}
+                onEnded={this.handNextTrack}
+            >
+                <source src={track.songDir}/>
             </audio>
 
             <div className="songInfoWrap">
@@ -161,7 +171,7 @@ class PlayerControls extends Component {
                     :
                     <button onClick={() => this.togglePlayback()}>Play</button>
                 }
-                <button onClick={this.handleSongSwitch}>reload source</button>
+                <button onClick={this.handNextTrack}>Next</button>
             </div>
             <div className="songVolume">
                 <select>

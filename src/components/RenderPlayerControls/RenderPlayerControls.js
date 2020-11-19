@@ -9,6 +9,7 @@ import PlayerControls from '../PlayerControls/PlayerControls'
  * 
  * > this functional component should probably construct a new Player controls, so that PlayerControls doesn't need to use getDerivedStateFromProps on initial mount. 
  */
+
 const  RenderPlayerControls = (props) => { 
 
     return (
@@ -16,7 +17,7 @@ const  RenderPlayerControls = (props) => {
       <div>
           {  props.store.tracklist.length > 0 ? //does the tracklist array contain at least one song?
 
-           <PlayerControls/> // if the song queue exists, render the controls.
+           <PlayerControls trackQueue={props.store.tracklist} /> // if the song queue exists, render the controls.
           :
             <></> // if nothing is playing, don't want to render the controls.
           }
