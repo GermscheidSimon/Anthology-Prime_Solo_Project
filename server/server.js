@@ -32,6 +32,8 @@ app.use('/api/playlist', playlistRouter)
 
 // Serve static files
 app.use(express.static('build'));
+// serve protected static files. returns 403 if not signed in. 
+// FS_songs will store the music the site will serve. 
 app.use(rejectUnauthenticated, express.static( 'server/FS_songs')) 
 
 // App Set //

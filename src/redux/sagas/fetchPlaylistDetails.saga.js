@@ -18,9 +18,20 @@ function* fetchplaylist(action) {
       alert('Failed to Load playlist information! Please try again.')
     }
   }
+function* playPlaylist(action) {
+    try{
+        yield put({
+            type: 'SET_TRACKLIST',
+            payload: action.payload
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
 
   function* fetchplaylistDetailsSaga() {
       yield takeLatest('FETCH_PLAYLIST_DETAILS', fetchplaylist)
+      yield takeLatest("PLAY_PLAYLIST", playPlaylist)
     }
   
   export default fetchplaylistDetailsSaga;

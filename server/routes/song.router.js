@@ -68,6 +68,8 @@ router.get('/', (req, res) => {
 
 /**
  * POST new track(s)
+ *  > use express-fileupload mv() included method to move the files into a local directory
+ *  > add the record for the song with the path informaiton to the SQL table. 
  */
 router.post('/:artist/:album/:name', fileUpload({ safeFileNames: true }), async (req, res) => {
     console.log('POST /api/song track file uploaded');
@@ -76,7 +78,8 @@ router.post('/:artist/:album/:name', fileUpload({ safeFileNames: true }), async 
         console.log(req.params);
 
     let filetype;
-
+    // site will only accept two kinds of file types. MP3 and FLAC files. The mv function requires the file name anyway,
+    // declaring the file extension that will be appended to the file name. 
     if (req.files.file.mimetype === 'audio/mpeg') {
         filetype = 'mp3'
     } else if (req.files.file.mimetype === 'audio/flac') {
@@ -86,7 +89,7 @@ router.post('/:artist/:album/:name', fileUpload({ safeFileNames: true }), async 
         res.sendStatus(500)
     }
     let filename = `${req.files.file.name}.${filetype}`
-    let songDir = `server/FS_songs/${filename}`
+    let songDir = `server/FS_songs/${filename}` // this directory should be absolute if this app was to be deployed anywhere else. 
 
     let queryText = `INSERT INTO "songs" ("name", "album", "artist", "user_id", "songDir" )
                             VALUES($1, $2, $3, $4, $5)`
@@ -99,7 +102,8 @@ router.post('/:artist/:album/:name', fileUpload({ safeFileNames: true }), async 
         `/${filename}`
     ]
     const connection = await pool.connect();
-        try {
+    // creating async transaction incase the mv failes, or the upload doesn't work. This should avoid creating a SQL record on error
+    try {
             await connection.query("BEGIN")
             await req.files.file.mv(songDir);
             await connection.query(queryText, queryInputs)
