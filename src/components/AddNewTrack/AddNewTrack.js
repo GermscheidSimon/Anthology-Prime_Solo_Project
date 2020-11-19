@@ -25,6 +25,8 @@ handleTrackLabelRead = (file) => {
     // using a Reader constructor may work around this issue, but for simplicities sake, the tag will be read here, and the file will be passed in through the handleFileInput function. 
     read(file, {
         onSuccess: (tag) => { // read expects a callback function called onSuccess to exist, and will fire it off if MediaFileReader is able to read the file.
+            console.log(tag);
+            
             let newTrackInfo = {
                 name: tag.tags.title,
                 artist: tag.tags.artist,
@@ -62,14 +64,15 @@ handleTrackInput = (event) => {
 }
 hahandleSubmit = () => {
     console.log(this.state);
-    let formdata = new FormData();
-    for (const file of this.state.ReadyToUploadTrack) {
-        formdata.append('file', file.file)
+    
+    for (const track of this.state.ReadyToUploadTracks) {
+        let trackFile = new FormData();
+        trackFile.append('file', track.file)
+        this.props.dispatch({
+            type: "UPLOAD_TRACK",
+            payload: {file: trackFile, trackInfo: track.fileinfo}
+        })
     }
-    this.props.dispatch({
-        type: "UPLOAD_TRACK",
-        payload: formdata
-    })
 }
 
 

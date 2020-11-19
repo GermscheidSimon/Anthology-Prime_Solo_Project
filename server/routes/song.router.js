@@ -69,20 +69,55 @@ router.get('/', (req, res) => {
 /**
  * POST new track(s)
  */
-router.post('/', fileUpload({ safeFileNames: true }), (req, res) => {
-    console.log('POST /api/song requested');
+router.post('/:artist/:album/:name', fileUpload({ safeFileNames: true }), async (req, res) => {
+    console.log('POST /api/song track file uploaded');
     if(req.isAuthenticated()) {
+        console.log(req.files);
+        console.log(req.params);
 
-        console.log(req.files.first);
-        console.log(req.files.info);
-        
-        // console.log(req.files);
-        
-        
-        res.sendStatus(200);
+    let filetype;
+
+    if (req.files.file.mimetype === 'audio/mpeg') {
+        filetype = 'mp3'
+    } else if (req.files.file.mimetype === 'audio/flac') {
+        filetype = 'flac'
+    } else {
+        console.log(filetype);
+        res.sendStatus(500)
+    }
+    let filename = `${req.files.file.name}.${filetype}`
+    let songDir = `server/FS_songs/${filename}`
+
+    let queryText = `INSERT INTO "songs" ("name", "album", "artist", "user_id", "songDir" )
+                            VALUES($1, $2, $3, $4, $5)`
+
+    let queryInputs = [
+        req.params.name,
+        req.params.album,
+        req.params.artist,
+        req.user.id,
+        `/${filename}`
+    ]
+    const connection = await pool.connect();
+        try {
+            await connection.query("BEGIN")
+            await req.files.file.mv(songDir);
+            await connection.query(queryText, queryInputs)
+            await connection.query('COMMIT')
+            res.sendStatus(201)
+        } catch (error) {
+            await connection.query('ROLLBACK')
+            console.log(error);
+            res.sendStatus(500)
+        } finally {
+            connection.release()
+        }
     } else {
         res.sendStatus(403);
     }
+})
+router.post('/createSong', (req, res) => {
+    res.sendStatus(500)
 })
 
 module.exports = router;

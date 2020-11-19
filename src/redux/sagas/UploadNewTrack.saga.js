@@ -9,10 +9,11 @@ function* uploadTrack(action) {
         const headers = {
             headers: { 'content-type': 'multipart/form-data' } // let the receivving server know the file is broken up
         }
+        
         yield axios({
             method: "POST",
-            url: "/api/song/readSong",
-            data: action.payload,
+            url: `/api/song/${action.payload.trackInfo.artist}/${action.payload.trackInfo.album}/${action.payload.trackInfo.name}`,
+            data: action.payload.file,
             config: headers
         })
     } catch (error) {
