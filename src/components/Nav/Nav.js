@@ -21,7 +21,8 @@ const Nav = (props) => {
       <Link to="/home">
         <h2 className="nav-title">Anthology</h2>
       </Link>
-      <div className="nav-right">
+      <div className="nav-options">
+      <div className="nav-middle">
         <Link className="nav-link" to={loginLinkData.path}>
           {/* Show this link if they are logged in or not,
           but call this link 'Home' if they are logged in,
@@ -40,13 +41,18 @@ const Nav = (props) => {
             <Link  className="nav-link" to="/addNewTrack">
               Upload Music
             </Link>
-            <LogOutButton className="nav-link" />
+            
           </>
         )}
+         </div>
         {/* Always show this link since the about page is not protected */}
+        <div className="nav-right">
+
         <Link className="nav-link" to="/about">
           About
         </Link>
+        <LogOutButton className="nav-link" />
+        </div>
       </div>
     </div>
   );

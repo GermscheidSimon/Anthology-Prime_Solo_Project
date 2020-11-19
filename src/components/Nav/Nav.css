@@ -4,21 +4,24 @@
     display: inline-block;
     color: #f2f2f2;
     padding-left: 10px;
-    align-self: left;
 }
 
 .nav {
   margin: auto;
-  background-color: #00acb0;
+  background-color:#111b1e;
   display: flex;
   position: fixed;
   top: 0;
   width: 100%;
 }
+.nav-options{
+  display: inline-flex;
+  width: 100%;
+}
 
 .nav-link {
   color: #f2f2f2;
-  background-color: #00acb0;
+  background-color: #111b1e;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
@@ -30,12 +33,12 @@
   cursor: pointer;
   outline:0;
 }
-
 .nav-link:hover {
   background-color: #008183;
 }
 
-.nav-right {
+
+.nav-middle {
   margin: auto;
   margin-left: 20%;
 }

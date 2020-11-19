@@ -14,7 +14,6 @@ const  TrackItem = (props) => {
             <td>{props.track.name}</td>
             <td>{props.track.artist}</td>
             <td>{props.track.album}</td>
-            <td>{props.track.length}</td>
         </tr>
     );
 }

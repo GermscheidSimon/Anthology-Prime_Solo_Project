@@ -26,6 +26,7 @@ class PlayerControls extends Component {
         trackIsPlaying: false,      // state of currently playing track. see (TogglePlayback, ComponentDidUpdate)
         updateNewTrack: false,     // flag for switching songs  see(ComponentDidUpdate)
         currentTime: '00:00',      // current time of track see (handleCurrentTime and interval)
+        sourceDuration: '00:00',
         interval: null,            // used to update DOM as while track is played. see (componentDidMount, handleCurrentTime)
         locationInPlaylist: 0,      // initial location. Updated as next songs play from store.tracklist
         trackqueue: [],
@@ -102,22 +103,24 @@ class PlayerControls extends Component {
     handleCurrentTime = () => {
     
         let songPosition = this.state.audioElement.current.currentTime
-        let minutes = Math.floor(songPosition / 60) 
-        let seconds = Math.floor(songPosition % 60)
+        
+             this.setState({
+                 currentTime: this.convertTimeToDigital(songPosition)
+             })
+        console.log('interval');        
+    }
+    convertTimeToDigital = (time) => {
+        let minutes = Math.floor(time / 60) 
+        let seconds = Math.floor(time % 60)
             if (seconds < 10) {
                 seconds = '0' + seconds
             }
             if (minutes < 10) {
                 minutes = '0' + minutes
             }
+        let convertedTime = `${minutes}:${seconds}`;
 
-        let time = `${minutes}:${seconds}`;
-             this.setState({
-                 currentTime: time
-             })
-        console.log('interval');
-        console.log(this.state);
-        
+        return  convertedTime
     }
     componentWillUnmount = () => {
         clearInterval(this.state.interval)
@@ -166,6 +169,11 @@ class PlayerControls extends Component {
     adjustVolume = (event) => {
         this.state.audioElement.current.volume = event.target.value / 100;
     }
+    handleSetSongDuration = () => {
+        this.setState({
+            sourceDuration: this.convertTimeToDigital(this.state.audioElement.current.duration)
+        })
+    }
 
   render() {
 
@@ -177,6 +185,7 @@ class PlayerControls extends Component {
                 key={track.id} 
                 ref={this.state.audioElement}
                 onEnded={this.handNextTrack}
+                onLoadedMetadata={this.handleSetSongDuration}
             >
                 <source src={track.songDir}/>
             </audio>
@@ -186,7 +195,7 @@ class PlayerControls extends Component {
                   <div className="songInfoSecondary">
                     <div> {track.album} </div>
                     <div> {track.artist} </div>
-                    <div>{this.state.currentTime} - {track.length}</div>
+                    <div>{this.state.currentTime} - {this.state.sourceDuration}</div>
                 </div>
             </div>
             <div className="songNavigation">

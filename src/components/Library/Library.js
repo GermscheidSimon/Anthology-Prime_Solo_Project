@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import TrackList from '../TrackList/TrackList';
 
+import './Library.css'
+
 /**
  
 TrackList JSON Structure for Library Component --- 
@@ -21,23 +23,6 @@ TrackList JSON Structure for Library Component ---
  */
 class Library extends Component {
 
-  items = [
-    {
-        id:  1,
-        title: 'Bohemian rhapsody',
-        album: 'A Night At The Opera',
-        artist: 'queen',
-        length: '5:59'
-    },
-    {
-        id:  2,
-        title: 'Bohemian rhapsody',
-        album: 'A Night At The Opera',
-        artist: 'queen',
-        length: '5:59'
-    }
-  ]
-
   componentDidMount = () => {
       this.getSongLibrary();
   }
@@ -50,12 +35,13 @@ class Library extends Component {
   render() {
       const songLibrary = this.props.store.libraryReducer
     return (
-      <div>
+      <div className="libraryWrap">
           <div>
                 Your Library -- 
           </div>
-
+          <div className="lib_TrackListWrap">
           <TrackList trackList={songLibrary}/>
+          </div>
       </div>
     );
   }

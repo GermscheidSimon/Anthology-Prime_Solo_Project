@@ -5,12 +5,13 @@ body,
 }
 
 .appMain{
-  margin-top: 5%;
+  margin-top: 10%;
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
+  /* background-color: #2f4c58; */
 }
 
 img {
@@ -59,7 +60,7 @@ Button
 }
 
 .btn:hover {
-  background-color: #008183;
+  background-color: #2f4c58;
   text-decoration: none;
 }
 
