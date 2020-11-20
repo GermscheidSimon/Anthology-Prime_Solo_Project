@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
     console.log(' GET /api/song/ requested');
     
     if (req.isAuthenticated()) {
-        let poolQuery = `SELECT "id", "name", "artist", "album", "length" FROM "songs" WHERE user_id = $1;`;
+        let poolQuery = `SELECT "id", "name", "artist", "album"  FROM "songs" WHERE user_id = $1;`;
 
         pool.query(poolQuery, [req.user.id])
       // if request successful respond with SQL rows

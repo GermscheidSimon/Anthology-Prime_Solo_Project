@@ -6,31 +6,42 @@
 }
 .tracklistTable{
     width: 100%;
-    margin-left: auto;
-    margin-right: 10%;
     border-collapse: collapse;
+    color: white;
 }
 .trackListTableHead{
-    font-size: 20px;
+    font-size: 30px;
     background-color: #2f4c58;
 }
-  
-.tracklistTable tr:nth-child(even){
-
+.trackListTableHead th{
+    padding-left: 40px;
 }
   
 .tracklistTable tr{
-    border-bottom: 2px solid black;
-    padding-top: 10px;
+    border-bottom: 2px solid white;
+
 }
-.tracklistTable tr:hover {
+.trackListTableBody{
+
+}
+.trackListTableBody td{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 60px;
+    font-size: 20px;
+}
+.trackListTableBody tr {
+    padding-top: 5px;
+    padding-top: 5px;
+}
+.trackListTableBody tr:hover {
     background-color: rgb(47, 109, 160);
-    
 }
+
   
 .tracklistTable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    color: white;
+
 }

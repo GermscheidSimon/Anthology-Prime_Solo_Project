@@ -40,7 +40,7 @@ class TrackList extends Component {
             </tr>
           </thead>  
         {/* .map through tracklist props array and create a table row for eac item. */}
-          <tbody>
+          <tbody className="trackListTableBody">
             {tracks.map(track => {
                 return <TrackItem track={track} key={track.id} />
             })}

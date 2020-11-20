@@ -1,8 +1,13 @@
 .lib_TrackListWrap{
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
+    width: 100%;
 }
 .libraryWrap{
     margin-top: 4%;
+    margin-bottom: 10%;
+}
+.libTitle{
+    font-size: 80px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 40px;
 }

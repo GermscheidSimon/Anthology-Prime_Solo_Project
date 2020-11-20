@@ -36,8 +36,8 @@ class Library extends Component {
       const songLibrary = this.props.store.libraryReducer
     return (
       <div className="libraryWrap">
-          <div>
-                Your Library -- 
+          <div className="libTitle">
+                 Music Library
           </div>
           <div className="lib_TrackListWrap">
           <TrackList trackList={songLibrary}/>

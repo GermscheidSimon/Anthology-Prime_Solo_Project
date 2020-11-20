@@ -4,11 +4,11 @@
     justify-content: center;
     vertical-align: top;
     margin-top: 2%;
-    background-color: lightgreen;
+    background-color: #111b1e;
     position: fixed;
     bottom: 0;
     width: 100%;
-
+    padding: 1%;
 }
 .songInfoWrap{
     margin-left: 1%;
