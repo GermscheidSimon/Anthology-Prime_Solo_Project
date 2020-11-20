@@ -3,8 +3,6 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const fileUpload = require('express-fileupload')
 
-
-
 /**
  * GET song by id
  */

@@ -12,7 +12,6 @@ import TrackList from '../TrackList/TrackList'
         title: <song title>,
         album: <album name>,
         artist: <artist name>,
-        length: <song length>
         }
  */
 

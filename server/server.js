@@ -25,7 +25,11 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
-/* Routes */
+/**
+ *  user     :  handles user login/authentication/registration
+ *  song     :  handles fetching songs and uploading new songs
+ *  playlist :  handles fetching playlists of of songs
+ * */
 app.use('/api/user', userRouter);
 app.use('/api/song', songRouter)
 app.use('/api/playlist', playlistRouter)

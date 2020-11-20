@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
- * GET route template
+ * GET all playlists
  */
 
 router.get('/', (req, res) => {
@@ -28,6 +28,9 @@ router.get('/', (req, res) => {
     }
   });
 
+/**
+ *  GET playlist details by ID
+ */
 
 router.get('/:id', (req, res) => {
     
