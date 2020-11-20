@@ -37,7 +37,7 @@ class Library extends Component {
     return (
       <div className="libraryWrap">
           <div className="libTitle">
-                 Music Library
+                 Music Library 
           </div>
           <div className="lib_TrackListWrap">
           <TrackList trackList={songLibrary}/>

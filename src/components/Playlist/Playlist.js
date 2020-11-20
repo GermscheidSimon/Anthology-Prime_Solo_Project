@@ -32,7 +32,8 @@ function Playlist(props) {
  
   const parsePlaylistData = () => {
         
-      let tracklist =  props.store.playlist.map( track => {
+      let tracklist =  props.store.playlist.map( track => {;
+            
             return {
                 id: track.songs_id,
                 name: track.name,
@@ -55,6 +56,9 @@ function Playlist(props) {
 
   return (
     <div>
+        <div className="playlistHeader">
+            Playlist name here
+        </div>
         <button onClick={handlePlay_Playlist}>Play!</button>
        { props.store.playlist && 
 

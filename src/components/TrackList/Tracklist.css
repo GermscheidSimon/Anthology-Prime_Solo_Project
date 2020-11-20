@@ -1,7 +1,8 @@
 .trackListWrap{
-    width: 100%;
+    width: 90%;
     margin: auto;
     text-align: left;
+    box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.2);
 
 }
 .tracklistTable{
@@ -11,10 +12,11 @@
 }
 .trackListTableHead{
     font-size: 30px;
-    background-color: #2f4c58;
+    background-color: #111b1e;
 }
 .trackListTableHead th{
     padding-left: 40px;
+    
 }
   
 .tracklistTable tr{
@@ -22,7 +24,7 @@
 
 }
 .trackListTableBody{
-
+    background-color: #1b2427c7;
 }
 .trackListTableBody td{
     padding-top: 20px;
@@ -35,7 +37,7 @@
     padding-top: 5px;
 }
 .trackListTableBody tr:hover {
-    background-color: rgb(47, 109, 160);
+    background-color: #364449c7;
 }
 
   

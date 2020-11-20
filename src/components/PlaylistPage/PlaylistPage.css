@@ -11,3 +11,9 @@
     margin-right: 30px;
     border: 1px solid black;
 }
+.playlistHeader{
+    font-size: 80px;
+
+    padding-bottom: 40px;
+    padding-left: 40px;
+}

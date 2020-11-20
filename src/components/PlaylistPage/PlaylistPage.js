@@ -30,8 +30,8 @@ class PlaylistPage extends Component {
   render() {
     return (
         <div>
-            <div>
-                <div> Playlists Header --  </div>
+            <div className="playlistHeader">
+                 Playlists
             </div>
             <div className="PlaylistCardsWrap">
                 {this.props.store.playlists.map( playlist => {
