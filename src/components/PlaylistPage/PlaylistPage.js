@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import PlaylistItem from '../PlaylistItem/PlaylistItem'
+import AddNewPlaylistModal from '../AddNewPlaylistModal/AddNewPlaylistModal'
 
 import './PlaylistPage.css'
 
@@ -24,7 +25,9 @@ class PlaylistPage extends Component {
             playlists: this.props.store.playlists
         })
     }
+    handleNewPlaylist = () => {
 
+    }
 
 
   render() {
@@ -40,9 +43,7 @@ class PlaylistPage extends Component {
                     )
                 })}
 
-                <div className="playlist-card">
-                    Add A New Playlist
-                </div>
+                <AddNewPlaylistModal/>
             </div>
         </div>
     );

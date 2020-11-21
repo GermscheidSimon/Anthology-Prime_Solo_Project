@@ -2,6 +2,8 @@ import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+
 import './PlayerControls.css'
 
 /**
@@ -22,16 +24,18 @@ import './PlayerControls.css'
 class PlayerControls extends Component {
     state = {
         currentSong: '/',         // initial state of component at the begining of lifecycle (ComponentDidUpdate)
-        audioElement: createRef(), // instance of audio ref to manage HTML interactions (see audio tag in render)
         trackIsPlaying: false,      // state of currently playing track. see (TogglePlayback, ComponentDidUpdate)
         updateNewTrack: false,     // flag for switching songs  see(ComponentDidUpdate)
-        currentTime: '00:00',      // current time of track see (handleCurrentTime and interval)
+        currentTime: 0,      // current time of track see (handleCurrentTime and interval)
         sourceDuration: '00:00',    // song duration see handleSetSongDuration() and <audio> tag for onMetaDataLoad event
+        songCompletion: 0,         // percent complete for Song Position slider
         interval: null,            // used to update DOM as while track is played. see (componentDidMount, handleCurrentTime)
         locationInPlaylist: 0,      // initial location. Updated as next songs play from store.tracklist
         trackQueue: [],             // an array of objects containing all the songs to play. Updated in componentDidUpdate
-        volume: 0                  // local state of the volume for the audio tag
+        volume: .5                // local state of the volume for the audio tag
     }
+
+    audioElement = createRef() // instance of audio ref to manage HTML interactions (see audio tag in render)
 
     // once the component is rendered, begin playing back the tracklist
     componentDidMount = () => {
@@ -47,9 +51,9 @@ class PlayerControls extends Component {
     // toggle play() and pause() options, and set current playback state
     togglePlayback = () => {
         if (this.state.trackIsPlaying) {
-            this.state.audioElement.current.pause()
+            this.audioElement.current.pause()
         } else {
-            this.state.audioElement.current.play()
+            this.audioElement.current.play()
         }
         this.setState({
             trackIsPlaying: !this.state.trackIsPlaying,
@@ -93,33 +97,32 @@ class PlayerControls extends Component {
     }
 
     // audio sources cannot be directly modified. After a source is changed the element must undergo a load() phase
-    // this function handles that task. 
+    // this function handles that task. It will also set the volume of the track to the state volume so that it doesn't jump back to default
     handleSongSwitch = () => {
-        this.state.audioElement.current.pause();
-        this.state.audioElement.current.load();
-        this.state.audioElement.current.play();
+        this.audioElement.current.pause();
+        this.audioElement.current.load();
+        this.audioElement.current.volume = this.state.volume
+        this.handleSongCompletion();
     }
 
 
     // this is tied to this componenents interval on component did mount. this will update the song position clock 
     handleCurrentTime = () => {
-    
-        let songPosition = this.state.audioElement.current.currentTime
-        
-             this.setState({
-                 currentTime: this.convertTimeToDigital(songPosition)
-             })
-        console.log('interval');        
+        let songPosition = this.audioElement.current.currentTime
+        this.setState({
+            currentTime: songPosition
+        });
+        this.handleSongCompletion()
     }
     // this will take in a total seconds (time) amount, and convert it to a more readable digital clock (mm:ss)
     convertTimeToDigital = (time) => {
-        let minutes = Math.floor(time / 60) 
-        let seconds = Math.floor(time % 60)
+        let minutes = Math.floor(time / 60);
+        let seconds = Math.floor(time % 60);
             if (seconds < 10) {
-                seconds = '0' + seconds
+                seconds = '0' + seconds;
             }
             if (minutes < 10) {
-                minutes = '0' + minutes
+                minutes = '0' + minutes;
             }
         let convertedTime = `${minutes}:${seconds}`;
 
@@ -174,13 +177,32 @@ class PlayerControls extends Component {
 
     // this function intakes the new value from the slider, and converts it into a percent to plug into the audio volume property
     adjustVolume = (event) => {
-        this.state.audioElement.current.volume = event.target.value / 100;
+        let nextVolume = event.target.value / 100
+        this.setState({
+            volume: nextVolume
+        })
+        this.audioElement.current.volume = nextVolume;
     }
     // this function is fired when the audio source fires 'onMetaDataLoad', and will push a value of the song duration to state
     handleSetSongDuration = () => {
         this.setState({
-            sourceDuration: this.convertTimeToDigital(this.state.audioElement.current.duration)
+            sourceDuration: this.convertTimeToDigital(this.audioElement.current.duration)
         })
+    }
+    handleTrackSeek = (event) => {
+        let trackSeekPosition = event.target.value / 100 // track position between 0% and 100%
+
+        let nextSongPosition = this.audioElement.current.duration * trackSeekPosition
+        this.audioElement.current.currentTime = nextSongPosition
+        this.handleSongCompletion()
+    }
+    handleSongCompletion = () => {
+        this.setState({
+            songCompletion: this.audioElement.current.currentTime / this.audioElement.current.duration
+        })
+    }
+    playSongWhenLoaded = () => {
+        this.audioElement.current.play()
     }
 
   render() {
@@ -188,12 +210,22 @@ class PlayerControls extends Component {
     let track = this.state.currentSong
     return (
         <div className="playerControlsWrap">
+            <input 
+                className="songPositionBar"
+                value={this.state.songCompletion * 100}
+                type="range" 
+                min="0" 
+                max="100"
+                onChange={(event) => {this.handleTrackSeek(event)}}
+            />
+            <div className="ControlsPod">
             {/* HTML 5 audio Component. Inviisble On the DOM. Dependent on having a source at all times */}
             <audio 
-                key={track.id} 
-                ref={this.state.audioElement}
-                onEnded={this.handNextTrack}
-                onLoadedMetadata={this.handleSetSongDuration}
+                key={track.id}
+                ref={this.audioElement}                       // to interact directly with this HTML 5 element, suing a ref instance 
+                onEnded={this.handNextTrack}                  // when track complete load next track
+                onLoadedMetadata={this.handleSetSongDuration} // song metadata is loadeded during the load event. It needs to be present before calling it.
+                onCanPlay={this.playSongWhenLoaded}           // Wait for the audio element to be ready before attemptempting playback
             >
                 <source src={track.songDir}/>
             </audio>
@@ -204,28 +236,35 @@ class PlayerControls extends Component {
                     <div className="songInfoSecondary">
                         <div> {track.album} </div>
                         <div> {track.artist} </div>
-                        <div>{this.state.currentTime} - {this.state.sourceDuration}</div>
+                        <div>{this.convertTimeToDigital(this.state.currentTime)} - {this.state.sourceDuration}</div>
                     </div>
                 </div>
         {/* -- Playback Navigation --- */}
                 <div className="songNavigation">
                     <button onClick={this.handlePrevTrack}>Previous</button>
-                    {
-                        this.state.trackIsPlaying ?
-
-                        <button onClick={() => this.togglePlayback()}>Pause</button>
-                        :
-                        <button onClick={() => this.togglePlayback()}>Play</button>
-                    }
+                        {
+                            this.state.trackIsPlaying ?
+                        
+                            <button onClick={() => this.togglePlayback()}>Pause</button>
+                            :
+                            <PlayArrowIcon onClick={() => this.togglePlayback()}></PlayArrowIcon>
+                        }
                     <button onClick={this.handNextTrack}>Next</button>
                 </div>
         {/** --Volume Control-- range slider. audio element volume must be a valume between 0 and 1. see adjustvolume */}
                 <div className="songVolume">
-                    <input onChange={(event) =>this.adjustVolume(event)} type="range" min="1" max="100" />
+                    <input 
+                        onChange={(event) =>this.adjustVolume(event)} 
+                        type="range" 
+                        min="1" 
+                        max="100" 
+                    />
                 </div>
         {/* -- Song Queue toggle -- */}
                 <div className="songQueue">
                     <button>Display Song Queue</button>
+                    
+                </div>
                 </div>
       </div>
     );

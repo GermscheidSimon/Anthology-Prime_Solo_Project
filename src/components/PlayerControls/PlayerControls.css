@@ -1,5 +1,4 @@
 .playerControlsWrap{
-    display: inline-flex;
     width: 100%;
     justify-content: center;
     vertical-align: top;
@@ -8,7 +7,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 1%;
+    box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.2);
 }
 .songInfoWrap{
     margin-left: 1%;
@@ -29,5 +28,39 @@
     margin: auto;
 }
 
+.ControlsPod{
+    display: inline-flex;
+    width: 100%;
+}
+.songPositionBar{
+    width: 100%;
+    background: #26a365; /* Green background */
+    height: 5px;
+    top: -10px;
+    position: relative;
 
+}
+.songPositionBar:hover{
+    height: 7px;
+}
+
+.songPositionBar::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    width: 15px; /* Set a specific slider handle width */
+    height: 15px; /* Slider handle height */
+    background: #1eb3b6; 
+    appearance: none;
+    cursor: pointer; /* Cursor on hover */
+}
+  
+.songPositionBar::-moz-range-thumb {
+
+    width: 15px; /* Set a specific slider handle width */
+    height: 15px; /* Slider handle height */
+    background: #1eb3b6; 
+    appearance: none;
+    cursor: pointer; /* Cursor on hover */
+    border: 1px solid #111b1e;
+    border-radius: 95%;
+}
 
