@@ -16,10 +16,12 @@ function AddNewPlaylistModal(props) {
   const [playlistName, setName] = React.useState('')
 
   const handleClickOpen = () => {
+    setName('')
     setOpen(true);
   };
 
   const handleClose = () => {
+    setName('')
     setOpen(false);
   };
 
@@ -57,7 +59,7 @@ function AddNewPlaylistModal(props) {
             type="text"
             fullWidth
             onChange={(event) => handleChange(event)}
-            required="required"
+            required={true}
           />
         </DialogContent>
         <DialogActions>

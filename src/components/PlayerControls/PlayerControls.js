@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 
 import './PlayerControls.css'
 
@@ -21,17 +22,18 @@ import './PlayerControls.css'
  *      > See RenderPlayerControls compoennt for how this component is rendered(consumed)
  * 
  */
+
 class PlayerControls extends Component {
     state = {
         currentSong: '/',         // initial state of component at the begining of lifecycle (ComponentDidUpdate)
-        trackIsPlaying: false,      // state of currently playing track. see (TogglePlayback, ComponentDidUpdate)
-        updateNewTrack: false,     // flag for switching songs  see(ComponentDidUpdate)
-        currentTime: 0,      // current time of track see (handleCurrentTime and interval)
-        sourceDuration: '00:00',    // song duration see handleSetSongDuration() and <audio> tag for onMetaDataLoad event
-        songCompletion: 0,         // percent complete for Song Position slider
-        interval: null,            // used to update DOM as while track is played. see (componentDidMount, handleCurrentTime)
-        locationInPlaylist: 0,      // initial location. Updated as next songs play from store.tracklist
-        trackQueue: [],             // an array of objects containing all the songs to play. Updated in componentDidUpdate
+        trackIsPlaying: false,    // state of currently playing track. see (TogglePlayback, ComponentDidUpdate)
+        updateNewTrack: false,    // flag for switching songs  see(ComponentDidUpdate)
+        currentTime: 0,           // current time of track see (handleCurrentTime and interval)
+        sourceDuration: '00:00',  // song duration see handleSetSongDuration() and <audio> tag for onMetaDataLoad event
+        songCompletion: 0,        // percent complete for Song Position slider
+        interval: null,           // used to update DOM as while track is played. see (componentDidMount, handleCurrentTime)
+        locationInPlaylist: 0,    // initial location. Updated as next songs play from store.tracklist
+        trackQueue: [],           // an array of objects containing all the songs to play. Updated in componentDidUpdate
         volume: .5                // local state of the volume for the audio tag
     }
 
@@ -91,9 +93,7 @@ class PlayerControls extends Component {
                     console.log(error);
                 }
             }
-
         }
-        
     }
 
     // audio sources cannot be directly modified. After a source is changed the element must undergo a load() phase
@@ -136,8 +136,7 @@ class PlayerControls extends Component {
     handNextTrack = () => {
         
         if (this.state.trackQueue.length > 1 && this.state.locationInPlaylist + 1 < this.state.trackQueue.length) {
-            console.log('doing a thing');
-            
+
             try {
                 this.setState(() => ({
                     locationInPlaylist: this.state.locationInPlaylist + 1,
@@ -149,7 +148,6 @@ class PlayerControls extends Component {
             } finally {
                 this.handleSongSwitch()
                 console.log(this.state.locationInPlaylist);
-                
             }
         } 
     }
@@ -164,7 +162,6 @@ class PlayerControls extends Component {
                     locationInPlaylist: this.state.locationInPlaylist - 1,
                     currentSong: this.state.trackQueue[this.state.locationInPlaylist - 1],
                 }));
-                
             } catch (error) {
                 console.log(error);
             } finally {
@@ -204,6 +201,7 @@ class PlayerControls extends Component {
     playSongWhenLoaded = () => {
         this.audioElement.current.play()
     }
+  
 
   render() {
 
@@ -242,10 +240,11 @@ class PlayerControls extends Component {
         {/* -- Playback Navigation --- */}
                 <div className="songNavigation">
                     <button onClick={this.handlePrevTrack}>Previous</button>
-                        {
-                            this.state.trackIsPlaying ?
-                        
-                            <button onClick={() => this.togglePlayback()}>Pause</button>
+                        {   this.state.trackIsPlaying ?
+                            <PauseIcon 
+                                onClick={() => this.togglePlayback()}
+                                
+                                />
                             :
                             <PlayArrowIcon onClick={() => this.togglePlayback()}></PlayArrowIcon>
                         }

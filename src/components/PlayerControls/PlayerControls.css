@@ -8,6 +8,7 @@
     bottom: 0;
     width: 100%;
     box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.2);
+    opacity: .98;
 }
 .songInfoWrap{
     margin-left: 1%;
@@ -35,13 +36,13 @@
 .songPositionBar{
     width: 100%;
     background: #26a365; /* Green background */
-    height: 5px;
-    top: -10px;
+    height: 7px;
+    top: -8px;
     position: relative;
-
+    left: -1px;
 }
 .songPositionBar:hover{
-    height: 7px;
+    height: 9px;
 }
 
 .songPositionBar::-webkit-slider-thumb {
@@ -63,4 +64,3 @@
     border: 1px solid #111b1e;
     border-radius: 95%;
 }
-
