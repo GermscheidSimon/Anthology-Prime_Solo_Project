@@ -42,7 +42,6 @@ class PlaylistPage extends Component {
                     <PlaylistItem playlist={playlist}/>
                     )
                 })}
-
                 <AddNewPlaylistModal/>
             </div>
         </div>

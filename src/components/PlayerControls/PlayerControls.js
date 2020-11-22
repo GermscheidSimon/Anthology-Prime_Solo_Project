@@ -192,6 +192,9 @@ class PlayerControls extends Component {
         let nextSongPosition = this.audioElement.current.duration * trackSeekPosition
         this.audioElement.current.currentTime = nextSongPosition
         this.handleSongCompletion()
+        this.setState({
+            trackIsPlaying: true
+        })
     }
     handleSongCompletion = () => {
         this.setState({

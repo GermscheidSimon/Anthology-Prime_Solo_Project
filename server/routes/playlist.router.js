@@ -60,5 +60,25 @@ router.get('/:id', (req, res) => {
    }
 });
 
+router.post('/', (req, res) => {
+    if (req.isAuthenticated) {
+       const queryText = `INSERT INTO "playlists" ("playlistName", "user_id") 
+                                Values($1, $2);`
+
+        pool.query(queryText, [req.body.playlistName, req.user.id])
+
+        .then( ( response ) => {
+            console.log(response);
+            res.sendStatus(201);
+        })
+
+        .catch( (error) => {
+            console.log(error);
+            res.sendStatus(500);
+        })
+    } else {
+        res.sendStatus(403);
+    }
+})
 
 module.exports = router;

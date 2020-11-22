@@ -25,9 +25,9 @@ import './Tracklist.css'
  * 
  */
 class TrackList extends Component {
-  listNum = 0
 
   render() {
+    let iterable = 0
     let tracks = this.props.trackList // trackList passed from parent component
     return (
       <div className="trackListWrap">
@@ -43,8 +43,8 @@ class TrackList extends Component {
         {/* .map through tracklist props array and create a table row for eac item. */}
           <tbody className="trackListTableBody">
             {tracks.map(track => {
-                  this.listNum++
-                return <TrackItem track={track} key={track.id} />
+                iterable++
+                return <TrackItem track={track} key={track.id} listNum={iterable}/>
             })}
           </tbody>
         </table> 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 
 
 function* fetchPlaylists(action) {
@@ -19,8 +19,22 @@ function* fetchPlaylists(action) {
     }
   }
 
+  function* createPlaylist(action) {
+    try {
+      console.log(action.payload);
+      
+        yield axios.post('/api/playlist', action.payload)
+        yield put({
+            type: "FETCH_PLAYLISTS"
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
   function* PlaylistsSaga() {
       yield takeLatest('FETCH_PLAYLISTS', fetchPlaylists)
+      yield takeEvery('CREATE_PLAYLIST', createPlaylist)
     }
   
   export default PlaylistsSaga;

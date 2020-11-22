@@ -29,7 +29,7 @@ function AddNewPlaylistModal(props) {
     if (playlistName !== '') {
         props.dispatch({
             type: "CREATE_PLAYLIST",
-            payload: playlistName
+            payload: {playlistName: playlistName}
         })
         setOpen(false)
         setName('')
@@ -49,7 +49,7 @@ function AddNewPlaylistModal(props) {
         <DialogTitle id="form-dialog-title">New Playlist</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Enter an Name for your new playlist:
+            Enter an name for your new playlist:
           </DialogContentText>
           <TextField
             autoFocus

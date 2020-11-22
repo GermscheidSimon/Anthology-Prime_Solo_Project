@@ -5,7 +5,7 @@ import userSaga from './user.saga';
 
 import fetchLibrarySaga from './fetchFromSongs.saga'
 import fetchplaylistDetailsSaga from './fetchPlaylistDetails.saga'
-import PlaylistsSags from './fetchPlaylists.saga'
+import playlist from './playlist.saga'
 import uploadTrackSaga from './UploadNewTrack.saga'
 
 
@@ -25,7 +25,7 @@ export default function* rootSaga() {
 //Application operations
     fetchLibrarySaga(),
     fetchplaylistDetailsSaga(),
-    PlaylistsSags(),
+    playlist(),
     uploadTrackSaga()
   ]);
 }
