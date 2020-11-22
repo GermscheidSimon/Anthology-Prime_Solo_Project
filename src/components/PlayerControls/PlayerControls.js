@@ -2,11 +2,8 @@ import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
-
 import PlayButton from '../PlayButton/PlayButton'
-
+import PauseButton from '../PauseButton/PauseButton'
 import './PlayerControls.css'
 
 /**
@@ -246,11 +243,13 @@ class PlayerControls extends Component {
                 <div className="songNavigation">
                     <button onClick={this.handlePrevTrack}>Previous</button>
                         {   this.state.trackIsPlaying ?
-                            <div onClick={() => this.togglePlayback()}>
-                                <PlayButton  />
-                            </div>
+                                <div onClick={() => this.togglePlayback()}>
+                                <PauseButton  />
+                                </div>
                             :
-                            <PlayArrowIcon onClick={() => this.togglePlayback()}></PlayArrowIcon>
+                                <div onClick={() => this.togglePlayback()}>
+                                    <PlayButton  />
+                                </div>
                         }
                     <button onClick={this.handNextTrack}>Next</button>
                 </div>

@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+import React from 'react';
 
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
-function PlayButton() {
+function PauseButton() {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
 
-
   return (
-      <PlayArrowIcon  style={{ fontSize: 50 }}  ></PlayArrowIcon>
+      <PauseIcon  style={{ fontSize: 50 }}  ></PauseIcon>
   );
 }
 
-export default connect(mapStoreToProps)(PlayButton);
+export default PauseButton;
