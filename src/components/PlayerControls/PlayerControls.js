@@ -4,6 +4,9 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import PlayButton from '../PlayButton/PlayButton'
 import PauseButton from '../PauseButton/PauseButton'
+import NextButton from '../NextButton/NextButton'
+import PrevButton from '../PrevButton/PrevButton'
+
 import './PlayerControls.css'
 
 /**
@@ -153,7 +156,7 @@ class PlayerControls extends Component {
     // this function handles navigating the trackqueue backwards, and then handles reloading the audio source when complete.
     handlePrevTrack = () => {
         
-        if (this.state.trackQueue.length > 1 && this.state.locationInPlaylist - 1 > 0) {
+        if (this.state.trackQueue.length > 1 && this.state.locationInPlaylist > 0) {
             console.log('doing a thing');
             
             try {
@@ -205,11 +208,10 @@ class PlayerControls extends Component {
     }
   
 
-  render() {
-
+  render() {    
     let track = this.state.currentSong
     return (
-        <div className="playerControlsWrap">
+        <div className="playerControlsWrap" {...this.props}> 
             <input 
                 className="songPositionBar"
                 value={this.state.songCompletion * 100}
@@ -241,7 +243,9 @@ class PlayerControls extends Component {
                 </div>
         {/* -- Playback Navigation --- */}
                 <div className="songNavigation">
-                    <button onClick={this.handlePrevTrack}>Previous</button>
+                    <div onClick={this.handlePrevTrack}>
+                        <PrevButton />
+                    </div> 
                         {   this.state.trackIsPlaying ?
                                 <div onClick={() => this.togglePlayback()}>
                                 <PauseButton  />
@@ -251,7 +255,9 @@ class PlayerControls extends Component {
                                     <PlayButton  />
                                 </div>
                         }
-                    <button onClick={this.handNextTrack}>Next</button>
+                    <div onClick={this.handNextTrack}>
+                        <NextButton />
+                    </div>  
                 </div>
         {/** --Volume Control-- range slider. audio element volume must be a valume between 0 and 1. see adjustvolume */}
                 <div className="songVolume">

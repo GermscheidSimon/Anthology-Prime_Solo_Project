@@ -64,3 +64,7 @@
     border: 1px solid #111b1e;
     border-radius: 95%;
 }
+.songNavigation{
+    display: inline-flex;
+    vertical-align: middle;
+}

@@ -1,9 +1,9 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import TrackList from '../TrackList/TrackList'
-
+import PlayCircleIcon from '../PlayCircleIcon/PlayCircleIcon'
 
 /**
  * TrackList is expecting an array of objects that look like this. Data from the SQL query needs to be translated for trackList reusability
@@ -62,7 +62,9 @@ class Playlist extends Component {
                 <div className="playlistHeader">
                     {this.props.store.playlistName.playlistName}
                 </div>
-                <button onClick={this.handlePlay_Playlist}>Play!</button>
+                <div onClick={this.handlePlay_Playlist}>
+                    <PlayCircleIcon/>
+                </div>
             { this.props.store.playlist && 
 
 

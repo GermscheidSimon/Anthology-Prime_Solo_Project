@@ -11,7 +11,7 @@ function PauseButton() {
   // a default value of 'Functional Component'
 
   return (
-      <PauseIcon  style={{ fontSize: 50 }}  ></PauseIcon>
+      <PauseIcon  style={{ fontSize: 80 }}  ></PauseIcon>
   );
 }
 
