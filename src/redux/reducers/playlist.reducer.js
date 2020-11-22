@@ -16,6 +16,7 @@ const playlist = (state = [], action) => {
         return state;
     }
   };
+
   
   // playlist will be on the redux state at:
   // store.playlist

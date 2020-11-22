@@ -8,10 +8,16 @@ function* fetchplaylist(action) {
       
       const playlistData = yield axios.get(`api/playlist/${action.payload.id}`)
         // add track to the currently playing tracklist 
+        console.log(playlistData.data);        
       yield put({
           type: "SET_PLAYLIST", 
           payload: playlistData.data
       });
+
+      yield put({
+          type: "GET_PLAYLIST_NAME",
+          payload: action.payload.id
+      })
     } catch (error) {
         // through client error if unsuccessful
       console.log('Failed to fetch playlist!',error);
@@ -30,10 +36,22 @@ function* playPlaylist(action) {
         console.log(error);
     }
 }
+function* playlistName(action) {
+    try {
+        const playlistName = yield axios.get(`/api/playlist/name/${action.payload}`)
+        yield put({
+            type: 'SET_PLAYLISTNAME',
+            payload: playlistName.data
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
 
   function* fetchplaylistDetailsSaga() {
       yield takeLatest('FETCH_PLAYLIST_DETAILS', fetchplaylist)
       yield takeLatest("PLAY_PLAYLIST", playPlaylist)
+      yield takeLatest('GET_PLAYLIST_NAME', playlistName)
     }
   
   export default fetchplaylistDetailsSaga;

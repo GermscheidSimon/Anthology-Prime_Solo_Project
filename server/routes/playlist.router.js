@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
@@ -46,7 +47,8 @@ router.get('/:id', (req, res) => {
 
         .then( ( response ) => {
             console.log('request successful');
-            console.log(`returned ${response.rows}`);
+            console.log(`returned ${response}`);
+
             res.send(response.rows)
         })
 
@@ -78,6 +80,23 @@ router.post('/', (req, res) => {
         })
     } else {
         res.sendStatus(403);
+    }
+})
+router.get('/name/:id', (req, res) => {
+    if (req.isAuthenticated) {
+        const queryText = `SELECT * FROM "playlists" WHERE "user_id" = $1 AND "id" = $2`
+
+        console.log(req.params.id)
+        pool.query(queryText, [req.user.id, req.params.id])
+
+        .then( (response) => {
+            console.log(response.rows[0]);
+            res.send(response.rows[0])
+        })
+
+        .catch( (error) => {
+            console.log(error);
+        })
     }
 })
 

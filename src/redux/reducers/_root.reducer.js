@@ -7,6 +7,7 @@ import tracklist from './tracklist.reducer'
 import currentSong from './currentSong.reducer'
 import playlist from './playlist.reducer'
 import playlists from './playlists.reducer'
+import playlistName from './playlistName.reducer'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   tracklist,      // stores track queue when playing songs
   currentSong,    // state of current track being played 
   playlist,       // details list for currect playlist 
-  playlists       // list of playlists
+  playlists,       // list of playlists
+  playlistName
 });
 
 export default rootReducer;

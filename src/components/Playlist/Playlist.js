@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
@@ -15,21 +15,29 @@ import TrackList from '../TrackList/TrackList'
         }
  */
 
-function Playlist(props) {
+class Playlist extends Component {
 
-    useEffect(() => fetchPlaylistDetails());
-        
-    const fetchPlaylistDetails = () => {
-        
-        props.dispatch({
-            type: "FETCH_PLAYLIST_DETAILS",
-            payload: props.match.params
-        });         
+    state = {
+        playlistName: 'playlistName'
     }
- 
-  const parsePlaylistData = () => {
+    
+    fetchPlaylistDetails = () => {
+        this.props.dispatch({
+            type: "FETCH_PLAYLIST_DETAILS",
+            payload: this.props.match.params
+        });
+    }
+    componentDidMount = () => {
+        this.fetchPlaylistDetails()
+        console.log(this.props.store.playlistName);
         
-      let tracklist =  props.store.playlist.map( track => {;
+    }
+
+
+ 
+    parsePlaylistData = () => {
+        
+      let tracklist =  this.props.store.playlist.map( track => {;
             
             return {
                 id: track.songs_id,
@@ -38,32 +46,31 @@ function Playlist(props) {
                 artist: track.artist,
                 length: track.length
             }
-      })
-      console.log(tracklist);
-      
+      })      
     return tracklist
   }
-  const handlePlay_Playlist = () => {
-    props.dispatch({
+   handlePlay_Playlist = () => {
+    this.props.dispatch({
         type: "PLAY_PLAYLIST",
-        payload: props.store.playlist
+        payload: this.props.store.playlist
     });
   }
  
+    render() {
+        return (
+            <div>
+                <div className="playlistHeader">
+                    {this.props.store.playlistName.playlistName}
+                </div>
+                <button onClick={this.handlePlay_Playlist}>Play!</button>
+            { this.props.store.playlist && 
 
-  return (
-    <div>
-        <div className="playlistHeader">
-            Playlist name here
-        </div>
-        <button onClick={handlePlay_Playlist}>Play!</button>
-       { props.store.playlist && 
 
-        <TrackList trackList={parsePlaylistData()}/>
-
-       }
-    </div>
-  );
+                <TrackList trackList={this.parsePlaylistData()}/>
+            }
+            </div>
+        );
+    }
 }
 
 export default connect(mapStoreToProps)(Playlist);
