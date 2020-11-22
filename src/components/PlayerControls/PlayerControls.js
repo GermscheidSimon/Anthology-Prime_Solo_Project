@@ -5,6 +5,8 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 
+import PlayButton from '../PlayButton/PlayButton'
+
 import './PlayerControls.css'
 
 /**
@@ -244,10 +246,9 @@ class PlayerControls extends Component {
                 <div className="songNavigation">
                     <button onClick={this.handlePrevTrack}>Previous</button>
                         {   this.state.trackIsPlaying ?
-                            <PauseIcon 
-                                onClick={() => this.togglePlayback()}
-                                
-                                />
+                            <div onClick={() => this.togglePlayback()}>
+                                <PlayButton  />
+                            </div>
                             :
                             <PlayArrowIcon onClick={() => this.togglePlayback()}></PlayArrowIcon>
                         }
