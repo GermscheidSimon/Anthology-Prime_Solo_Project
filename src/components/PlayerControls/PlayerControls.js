@@ -248,7 +248,7 @@ class PlayerControls extends Component {
                     </div> 
                         {   this.state.trackIsPlaying ?
                                 <div onClick={() => this.togglePlayback()}>
-                                <PauseButton  />
+                                    <PauseButton  />
                                 </div>
                             :
                                 <div onClick={() => this.togglePlayback()}>

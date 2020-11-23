@@ -1,5 +1,6 @@
 const { response } = require('express');
 const express = require('express');
+const { listeners } = require('../modules/pool');
 const pool = require('../modules/pool');
 const router = express.Router();
 
@@ -96,6 +97,26 @@ router.get('/name/:id', (req, res) => {
 
         .catch( (error) => {
             console.log(error);
+        })
+    }
+})
+
+router.put('/:playlistID/:trackID', (req, res) => {
+    
+    if (req.isAuthenticated) {
+        const queryText = `INSERT INTO "songs_playlists"("playlists_id", "songs_id")
+        VALUES($1, $2);`
+
+        pool.query(queryText, [req.params.playlistID, req.params.trackID])
+
+        .then( (response) => {
+            console.log(response);
+            res.sendStatus(201);
+        })
+
+        .catch( (error) => {
+            console.log(error);
+            res.sendStatus(500);
         })
     }
 })

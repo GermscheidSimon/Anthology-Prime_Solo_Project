@@ -26,6 +26,15 @@ import './Tracklist.css'
  */
 class TrackList extends Component {
 
+  fetchPlaylists = () => {
+    this.props.dispatch({
+      type: "FETCH_PLAYLISTS"
+    })
+  }
+  componentDidMount = () => {
+    this.fetchPlaylists()
+  }
+
   render() {
     let iterable = 0
     let tracks = this.props.trackList // trackList passed from parent component
@@ -44,7 +53,7 @@ class TrackList extends Component {
           <tbody className="trackListTableBody">
             {tracks.map(track => {
                 iterable++
-                return <TrackItem track={track} key={track.id} listNum={iterable}/>
+                return <TrackItem track={track} key={track.id} listNum={iterable} playlists={this.props.store.playlists}/>
             })}
           </tbody>
         </table> 

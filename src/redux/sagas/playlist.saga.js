@@ -31,10 +31,28 @@ function* fetchPlaylists(action) {
         console.log(error);
     }
 }
+function* AddToPlaylist(action) {
+
+    /**
+     *  {
+          trackID: track_id,
+          playlistID: playlist_id
+      }
+     */
+    try {
+      console.log(action.payload);
+      
+      yield axios.put(`/api/playlist/${action.payload.playlistID}/${action.payload.trackID}`)
+      // add alert to user that it was added
+    } catch (error) {
+      console.log(error);
+    }
+}
 
   function* PlaylistsSaga() {
       yield takeLatest('FETCH_PLAYLISTS', fetchPlaylists)
       yield takeEvery('CREATE_PLAYLIST', createPlaylist)
+      yield takeEvery('ADD_TOO_PLAYLIST', AddToPlaylist)
     }
   
   export default PlaylistsSaga;
