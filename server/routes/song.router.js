@@ -118,8 +118,24 @@ router.post('/:artist/:album/:name', fileUpload({ safeFileNames: true }), async 
         res.sendStatus(403);
     }
 })
-router.post('/createSong', (req, res) => {
-    res.sendStatus(500)
+router.delete('/:id', (req, res) => {
+    if (req.isAuthenticated) {
+        const queryText = `DELETE FROM "songs" WHERE "id" = $1`
+        
+        pool.query(queryText, [req.params.id])
+
+        .then( ( response ) => {
+            console.log(response);
+            res.sendStatus(200)
+        })
+        .catch( (error) => {
+            console.log(error);
+            res.sendStatus(500)
+        })
+    } else {
+        res.sendStatus(500)
+    }
 })
+
 
 module.exports = router;

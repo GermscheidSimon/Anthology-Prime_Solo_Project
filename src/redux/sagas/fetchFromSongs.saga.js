@@ -39,10 +39,21 @@ function* fetchSong(action) {
     alert('Failed to Load Library! Please try again.')
   }
 }
+function* deleteTrack(action) {
+    try {
+      yield axios.delete(`api/song/${action.payload}`) 
+      yield put({
+        type: "FETCH_USER_LIBRARY"
+      })
+    } catch (error) {
+      console.log(error);
+    }
+}
 
 function* fetchFromSongs() {
     yield takeEvery("FETCH_USER_LIBRARY", fetchUserLibrary);
     yield takeLatest('FETCH_SONG', fetchSong)
+    yield takeEvery('DELETE_TRACK', deleteTrack)
   }
 
 export default fetchFromSongs;

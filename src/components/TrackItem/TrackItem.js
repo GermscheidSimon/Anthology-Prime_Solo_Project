@@ -8,6 +8,7 @@ import NestedContextMenu from '../NestedContextMenu/NestedContextMenu'
  * 'track' with following keys:  {id:, name:, artist:, album:}
  */
 const  TrackItem = (props) => {
+    
   
     return (
         <tr key={props.track.id}  >
@@ -15,7 +16,7 @@ const  TrackItem = (props) => {
             <td onClick={() => props.dispatch({type: 'FETCH_SONG', payload: props.track.id})}>{props.track.name}</td>
             <td onClick={() => props.dispatch({type: 'FETCH_SONG', payload: props.track.id})}>{props.track.artist}</td>
             <td onClick={() => props.dispatch({type: 'FETCH_SONG', payload: props.track.id})}>{props.track.album}</td>
-            <td><NestedContextMenu trackID={props.track.id}/></td>
+            <td><NestedContextMenu trackID={props.track.id} deleteTrack={props.deleteTrack}/></td>
         </tr>
     );
 }

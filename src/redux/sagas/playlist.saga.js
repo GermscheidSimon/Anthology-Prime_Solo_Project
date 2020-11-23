@@ -48,11 +48,20 @@ function* AddToPlaylist(action) {
       console.log(error);
     }
 }
+function* removeFromPlaylist(action) {
+      try {
+        yield axios.delete(`/api/playlist/${action.payload.playlistID}/${action.payload.trackID}`)
+        yield put({type: "FETCH_PLAYLIST_DETAILS", payload: {id: action.payload.playlistID}})
+      } catch (error) {
+        console.log(error);
+      }
+}
 
   function* PlaylistsSaga() {
       yield takeLatest('FETCH_PLAYLISTS', fetchPlaylists)
       yield takeEvery('CREATE_PLAYLIST', createPlaylist)
       yield takeEvery('ADD_TOO_PLAYLIST', AddToPlaylist)
+      yield takeEvery('REMOVE_FROM_PLAYLIST', removeFromPlaylist)
     }
   
   export default PlaylistsSaga;

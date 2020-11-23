@@ -120,5 +120,24 @@ router.put('/:playlistID/:trackID', (req, res) => {
         })
     }
 })
+router.delete('/:playlistID/:trackID', (req, res) => {
+
+    if (req.isAuthenticated) {
+        const queryText = `DELETE FROM "songs_playlists" 
+                                WHERE "playlists_id" = $1 AND "songs_id" = $2;`
+
+        pool.query(queryText, [req.params.playlistID, req.params.trackID])
+
+        .then( (response) => {
+            console.log(response);
+            res.sendStatus(200);
+        })
+
+        .catch( (error) => {
+            console.log(error);
+            res.sendStatus(500);
+        })
+    }
+})
 
 module.exports = router;

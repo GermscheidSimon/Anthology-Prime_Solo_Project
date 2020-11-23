@@ -40,7 +40,7 @@ class Library extends Component {
                  Music Library 
           </div>
           <div className="lib_TrackListWrap">
-          <TrackList trackList={songLibrary}/>
+          <TrackList deleteTrack={true} trackList={songLibrary}/>
           </div>
       </div>
     );

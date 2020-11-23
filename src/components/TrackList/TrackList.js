@@ -53,7 +53,7 @@ class TrackList extends Component {
           <tbody className="trackListTableBody">
             {tracks.map(track => {
                 iterable++
-                return <TrackItem track={track} key={track.id} listNum={iterable} playlists={this.props.store.playlists}/>
+                return <TrackItem deleteTrack={this.props.deleteTrack}track={track} key={track.id} listNum={iterable} playlists={this.props.store.playlists}/>
             })}
           </tbody>
         </table> 

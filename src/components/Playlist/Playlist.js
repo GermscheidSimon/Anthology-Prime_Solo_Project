@@ -68,7 +68,7 @@ class Playlist extends Component {
             { this.props.store.playlist && 
 
 
-                <TrackList trackList={this.parsePlaylistData()}/>
+                <TrackList deleteTrack={false} trackList={this.parsePlaylistData()}/>
             }
             </div>
         );
