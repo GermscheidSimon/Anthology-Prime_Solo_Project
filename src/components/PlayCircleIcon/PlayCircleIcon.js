@@ -12,7 +12,7 @@ function PlayCircleIcon() {
     // a default value of 'Functional Component'
    
     return (
-            <PlayCircleOutlineIcon   style={{ fontSize: 80, color: 'white'}} ></PlayCircleOutlineIcon>
+            <PlayCircleOutlineIcon   style={{ fontSize: 100, color: 'white'}} ></PlayCircleOutlineIcon>
     );
   }
   

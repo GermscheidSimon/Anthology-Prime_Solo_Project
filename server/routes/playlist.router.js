@@ -15,16 +15,16 @@ router.get('/', (req, res) => {
                     WHERE "user_id" = $1`
         pool.query(queryText, [req.user.id])
 
-        .then( (response) => {
-            console.log('request successful');
-            console.log(`returned ${response.rows}`);
-            res.send(response.rows)
-        })
+            .then( (response) => {
+                console.log('request successful');
+                console.log(`returned ${response.rows}`);
+                res.send(response.rows)
+            })
 
-        .catch( (error) => {
-            console.log(error);
-            res.sendStatus(500)
-        })
+            .catch( (error) => {
+                console.log(error);
+                res.sendStatus(500)
+            })
     } else {
         res.sendStatus(500)
     }
@@ -46,17 +46,17 @@ router.get('/:id', (req, res) => {
 
         pool.query(queryText, [req.params.id])
 
-        .then( ( response ) => {
-            console.log('request successful');
-            console.log(`returned ${response}`);
+            .then( ( response ) => {
+                console.log('request successful');
+                console.log(`returned songs from ${req.params.id} playlist ${response.rows}`);
 
-            res.send(response.rows)
-        })
+                res.send(response.rows)
+            })
 
-        .catch( ( error ) => {
-            console.log(error);
-            res.sendStatus(500)
-        });
+            .catch( ( error ) => {
+                console.log(error);
+                res.sendStatus(500)
+            });
         
    } else {
        res.sendStatus(403)
@@ -70,15 +70,15 @@ router.post('/', (req, res) => {
 
         pool.query(queryText, [req.body.playlistName, req.user.id])
 
-        .then( ( response ) => {
-            console.log(response);
-            res.sendStatus(201);
-        })
+            .then( ( response ) => {
+                console.log(response);
+                res.sendStatus(201);
+            })
 
-        .catch( (error) => {
-            console.log(error);
-            res.sendStatus(500);
-        })
+            .catch( (error) => {
+                console.log(error);
+                res.sendStatus(500);
+            })
     } else {
         res.sendStatus(403);
     }
@@ -86,22 +86,42 @@ router.post('/', (req, res) => {
 router.get('/name/:id', (req, res) => {
     if (req.isAuthenticated) {
         const queryText = `SELECT * FROM "playlists" WHERE "user_id" = $1 AND "id" = $2`
-
-        console.log(req.params.id)
+        
         pool.query(queryText, [req.user.id, req.params.id])
 
-        .then( (response) => {
-            console.log(response.rows[0]);
-            res.send(response.rows[0])
-        })
+            .then( (response) => {
+                console.log(response.rows[0]);
+                res.send(response.rows[0])
+            })
 
-        .catch( (error) => {
-            console.log(error);
-        })
+            .catch( (error) => {
+                console.log(error);
+            })
+    }
+})
+router.put('/edit/:playlistID/:playlistName', (req, res) => {
+    if (req.isAuthenticated) {
+        const queryText = `UPDATE "playlists"
+                                SET "playlistName" = $1
+                                WHERE "id" = $2
+                                AND "user_id" = $3;`
+        pool.query(queryText, [req.params.playlistName, req.params.playlistID, req.user.id])
+        
+            .then( ( response ) => {
+                console.log(response);
+                res.sendStatus(201);
+            })
+            
+            .catch( (error) => {
+                console.log(error);
+                res.sendStatus(500);
+            })
+    } else {
+        res.sendStatus(403);
     }
 })
 
-router.put('/:playlistID/:trackID', (req, res) => {
+router.post('/:playlistID/:trackID', (req, res) => {
     
     if (req.isAuthenticated) {
         const queryText = `INSERT INTO "songs_playlists"("playlists_id", "songs_id")
@@ -120,6 +140,7 @@ router.put('/:playlistID/:trackID', (req, res) => {
         })
     }
 })
+
 router.delete('/:playlistID/:trackID', (req, res) => {
 
     if (req.isAuthenticated) {
@@ -128,15 +149,15 @@ router.delete('/:playlistID/:trackID', (req, res) => {
 
         pool.query(queryText, [req.params.playlistID, req.params.trackID])
 
-        .then( (response) => {
-            console.log(response);
-            res.sendStatus(200);
-        })
+            .then( (response) => {
+                console.log(response);
+                res.sendStatus(200);
+            })
 
-        .catch( (error) => {
-            console.log(error);
-            res.sendStatus(500);
-        })
+            .catch( (error) => {
+                console.log(error);
+                res.sendStatus(500);
+            })
     }
 })
 

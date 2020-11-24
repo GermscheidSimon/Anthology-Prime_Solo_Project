@@ -10,7 +10,7 @@ function PlaylistIcon() {
   // a default value of 'Functional Component'
 
   return (
-    <QueueMusicIcon style={{ fontSize: 80, color: 'white'}} />
+    <QueueMusicIcon style={{ fontSize: 100, color: 'white'}} />
   );
 }
 

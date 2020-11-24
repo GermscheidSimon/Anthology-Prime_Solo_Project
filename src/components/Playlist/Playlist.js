@@ -71,8 +71,8 @@ class Playlist extends Component {
     render() {
         return (
             <div>
-                <div className="playlistHeaderWrap"  onMouseEnter={()=>this.handleButtonRender(true)} onMouseLeave={()=>this.handleButtonRender(false)}>
-                    <div className="Playlist_Controls">
+                <div className="playlistHeaderWrap"  >
+                    <div className="Playlist_Controls" onMouseEnter={()=>this.handleButtonRender(true)} onMouseLeave={()=>this.handleButtonRender(false)}>
                         <div className="playContorl" onClick={this.handlePlay_Playlist}>
                             {   this.state.playButtonRendered ?
                                     <PlayCircleIcon />
@@ -84,7 +84,7 @@ class Playlist extends Component {
                         Playlist: {this.props.store.playlistName.playlistName}
                         </div>
                     </div>
-                        <PlaylistMenu/>
+                        <PlaylistMenu playlistID={this.props.match.params.id}/>
                 </div>
             { this.props.store.playlist && 
 

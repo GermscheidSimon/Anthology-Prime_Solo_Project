@@ -42,7 +42,7 @@ function* AddToPlaylist(action) {
     try {
       console.log(action.payload);
       
-      yield axios.put(`/api/playlist/${action.payload.playlistID}/${action.payload.trackID}`)
+      yield axios.post(`/api/playlist/${action.payload.playlistID}/${action.payload.trackID}`)
       // add alert to user that it was added
     } catch (error) {
       console.log(error);
@@ -56,12 +56,24 @@ function* removeFromPlaylist(action) {
         console.log(error);
       }
 }
+function* EditPlaylistName(action) {
+    try {
+      yield axios.put(`/api/playlist/edit/${action.payload.playlistID}/${action.payload.playlistName}`)
+      yield put({
+        type: "FETCH_PLAYLIST_DETAILS",
+        payload: {id: action.payload.playlistID}
+      })
+    } catch (error) {
+      console.log(error);
+    }
+}
 
   function* PlaylistsSaga() {
       yield takeLatest('FETCH_PLAYLISTS', fetchPlaylists)
       yield takeEvery('CREATE_PLAYLIST', createPlaylist)
       yield takeEvery('ADD_TOO_PLAYLIST', AddToPlaylist)
       yield takeEvery('REMOVE_FROM_PLAYLIST', removeFromPlaylist)
+      yield takeLatest('EDIT_PLAYLIST_NAME', EditPlaylistName)
     }
   
   export default PlaylistsSaga;

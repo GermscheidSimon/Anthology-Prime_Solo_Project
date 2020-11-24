@@ -118,20 +118,29 @@ router.post('/:artist/:album/:name', fileUpload({ safeFileNames: true }), async 
         res.sendStatus(403);
     }
 })
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     if (req.isAuthenticated) {
-        const queryText = `DELETE FROM "songs" WHERE "id" = $1`
-        
-        pool.query(queryText, [req.params.id])
 
-        .then( ( response ) => {
-            console.log(response);
-            res.sendStatus(200)
-        })
-        .catch( (error) => {
-            console.log(error);
-            res.sendStatus(500)
-        })
+        const connection = await pool.connect();
+
+        const deletePlaylistRelation = `DELETE FROM "songs_playlists" WHERE "songs_id" = $1 `
+        const deleteTrack = `DELETE FROM "songs" WHERE "id" = $1 AND "user_id" = $2`
+
+        try {
+            await connection.query('BEGIN;')
+                await connection.query(deletePlaylistRelation, [req.params.id])
+
+                await connection.query(deleteTrack, [req.params.id, req.user.id])
+            await connection.query('COMMIT;')
+                res.sendStatus(200)
+        } catch (error) {
+                console.log('delete request failed');
+                await connection.query('ROLLBACK;')
+                res.sendStatus(500)
+        } finally {
+            await connection.release()
+        }
+
     } else {
         res.sendStatus(500)
     }
