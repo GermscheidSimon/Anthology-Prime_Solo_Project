@@ -39,24 +39,40 @@ class TrackList extends Component {
     let iterable = 0
     let tracks = this.props.trackList // trackList passed from parent component
     return (
-      <div className="trackListWrap">
-        <table className="tracklistTable">
-          <thead className="trackListTableHead">
-            <tr>
-              <th>#</th>
-              <th>Track Name</th>
-              <th>Artist</th>
-              <th>Album</th>
-            </tr>
-          </thead>  
-        {/* .map through tracklist props array and create a table row for eac item. */}
-          <tbody className="trackListTableBody">
-            {tracks.map(track => {
-                iterable++
-                return <TrackItem deleteTrack={this.props.deleteTrack}track={track} key={track.id} listNum={iterable} playlists={this.props.store.playlists}/>
-            })}
-          </tbody>
-        </table> 
+      <div>
+        <div className="trackListWrap">
+          <table className="tracklistTable">
+            <thead className="trackListTableHead">
+              <tr>
+                <th className="optionColumnHdr">#</th>
+                <th>Track Name</th>
+                <th>Artist</th>
+                <th>Album</th>
+              </tr>
+            </thead>  
+          {/* .map through tracklist props array and create a table row for eac item. */}
+            <tbody className="trackListTableBody">
+              {  
+                tracks.map(track => {
+                  iterable++
+                  return <TrackItem deleteTrack={this.props.deleteTrack}track={track} key={track.id} listNum={iterable} playlists={this.props.store.playlists}/>
+                })
+              }
+
+              
+
+            </tbody>
+          </table> 
+              
+        </div>
+        
+          { 
+              tracks.length < 1 ?
+                <div className="emptyPlayList">There Doesn't Seem To be anything here yet!</div>
+              :
+
+              <></>
+            }
       </div>
     );
   }

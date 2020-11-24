@@ -6,6 +6,7 @@ body,
 
 .appMain{
   margin-top: 10%;
+  margin-bottom: 20%;
 }
 
 body {
@@ -63,6 +64,12 @@ Button
 .btn:hover {
   background-color: #2f4c58;
   text-decoration: none;
+}
+.MuiSvgIcon-root:hover{
+  background-color:#43606b;
+  opacity: .90;
+  border-radius: 50%;
+  
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */

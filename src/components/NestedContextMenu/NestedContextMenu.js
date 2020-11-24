@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Menu, MenuItem, Typography } from "@material-ui/core";
+import { Menu, MenuItem } from "@material-ui/core";
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import {connect} from 'react-redux'
 
 import NestedMenuItem from "material-ui-nested-menu-item";
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
  const NestedContextMenu = (props) => {
   const [menuPosition, setMenuPosition] = useState(null);
@@ -52,11 +53,18 @@ import NestedMenuItem from "material-ui-nested-menu-item";
     })
     handleItemClick()
 }
+const handleAddToQueue = (track) => {
+    props.dispatch({
+        type: "ADD_TRACK_TO_TRACKLIST",
+        payload: track
+    })
+    handleItemClick()
+}
 
 
   return (
     <div onClick={handleRightClick}>
-      <Typography>option</Typography>
+        <MoreVertIcon fontSize="small"/>
       <Menu
         open={!!menuPosition}
         onClose={() => setMenuPosition(null)}
@@ -69,7 +77,7 @@ import NestedMenuItem from "material-ui-nested-menu-item";
                 <MenuItem onClick={() => handlePlaylistRemove(props.trackID, props.store.playlist[0].id)}>- From Playlist</MenuItem>
           }
        
-        <MenuItem onClick={() => handleItemClick()}>Add to Queue</MenuItem>
+        <MenuItem onClick={() => handleAddToQueue(props.track)}>Add to Queue</MenuItem>
         <NestedMenuItem
           label="Add To Playlist"
           parentMenuOpen={!!menuPosition}

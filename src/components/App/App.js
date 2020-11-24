@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import Nav from '../Nav/Nav';
     // Render player controls handles Player controls when user is signed in.
 import RenderPlayerControls from '../RenderPlayerControls/RenderPlayerControls'
+import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // linked pages
     // login required
@@ -127,11 +128,14 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404. Either Page does not exist, or was unable to handle your request.</h1>} />
           </Switch>
-          <RenderPlayerControls />
+          {this.props.store.user.id && 
+            <RenderPlayerControls />
+          }
+         
         </div>
       </Router>
     );
   }
 }
 
-export default connect()(App);
+export default connect(mapStoreToProps)(App);

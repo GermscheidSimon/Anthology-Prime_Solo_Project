@@ -56,6 +56,8 @@
   margin-left: auto;
   margin-right: auto;
   height: 100%;
+  padding-left: 4%;
+  padding-right: 2%;
 }
 .nav-link:hover {
   color: #008183;
@@ -71,7 +73,9 @@
   width: 40%;
   margin-left: auto;
   margin-right: auto;
+  padding-right: 10%;
   display: inline-flex;
+  
 }
 .nav-right{
   display: inline-flex;

@@ -1,0 +1,16 @@
+.trackOptionMenu{
+    max-height: 24px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: inline-block;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-size: 18px;
+    padding-left: 50px;
+}
+.trackListTableBodyTD{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 55px;
+    font-size: 18px;
+}

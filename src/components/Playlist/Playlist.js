@@ -5,6 +5,12 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import TrackList from '../TrackList/TrackList'
 import PlayCircleIcon from '../PlayCircleIcon/PlayCircleIcon'
 
+import PlaylistIcon from '../PlaylistIcon/PlaylistIcon'
+
+import PlaylistMenu from '../PlaylistMenu/PlaylistMenu'
+
+import './Playlist.css'
+
 /**
  * TrackList is expecting an array of objects that look like this. Data from the SQL query needs to be translated for trackList reusability
  * {
@@ -18,7 +24,8 @@ import PlayCircleIcon from '../PlayCircleIcon/PlayCircleIcon'
 class Playlist extends Component {
 
     state = {
-        playlistName: 'playlistName'
+        playlistName: 'playlistName',
+        playButtonRendered: false
     }
     
     fetchPlaylistDetails = () => {
@@ -55,15 +62,29 @@ class Playlist extends Component {
         payload: this.props.store.playlist
     });
   }
+  handleButtonRender = (boolean) =>{
+      this.setState({
+          playButtonRendered: boolean
+      })
+  }
  
     render() {
         return (
             <div>
-                <div className="playlistHeader">
-                    {this.props.store.playlistName.playlistName}
-                </div>
-                <div onClick={this.handlePlay_Playlist}>
-                    <PlayCircleIcon/>
+                <div className="playlistHeaderWrap"  onMouseEnter={()=>this.handleButtonRender(true)} onMouseLeave={()=>this.handleButtonRender(false)}>
+                    <div className="Playlist_Controls">
+                        <div className="playContorl" onClick={this.handlePlay_Playlist}>
+                            {   this.state.playButtonRendered ?
+                                    <PlayCircleIcon />
+                                :
+                                    <PlaylistIcon /> 
+                            }
+                        </div>
+                        <div className="playlistHeader">
+                        Playlist: {this.props.store.playlistName.playlistName}
+                        </div>
+                    </div>
+                        <PlaylistMenu/>
                 </div>
             { this.props.store.playlist && 
 

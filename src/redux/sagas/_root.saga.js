@@ -3,7 +3,7 @@ import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 
-import fetchLibrarySaga from './fetchFromSongs.saga'
+import fetchFromSongs from './FetchSongsLibrary.saga'
 import fetchplaylistDetailsSaga from './fetchPlaylistDetails.saga'
 import playlist from './playlist.saga'
 import uploadTrackSaga from './UploadNewTrack.saga'
@@ -23,7 +23,7 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
 //Application operations
-    fetchLibrarySaga(),
+    fetchFromSongs(),
     fetchplaylistDetailsSaga(),
     playlist(),
     uploadTrackSaga()

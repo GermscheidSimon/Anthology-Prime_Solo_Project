@@ -1,7 +1,6 @@
 .trackListWrap{
     width: 90%;
     margin: auto;
-    text-align: left;
     box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.2);
 
 }
@@ -17,7 +16,6 @@
     padding-left: 40px;
     border-bottom: 2px solid white;
     color: white;
-
 }
   
 .tracklistTable tr{
@@ -27,15 +25,13 @@
 .trackListTableBody{
     background-color: #1b2427c7;
 }
-.trackListTableBody td{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 60px;
-    font-size: 20px;
+.optionColumnHdr{
+    width: 50px;
 }
+
 .trackListTableBody tr {
-    padding-top: 5px;
-    padding-top: 5px;
+    padding-top: 3px;
+    padding-top: 3px;
 }
 .trackListTableBody tr:hover {
     background-color: #364449c7;
@@ -46,5 +42,11 @@
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-
+}
+.emptyPlayList{
+    padding-top: 4%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    font-size: 30px;
 }

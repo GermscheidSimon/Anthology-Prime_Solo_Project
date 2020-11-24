@@ -1,0 +1,21 @@
+.playlistHeaderWrap{
+    display: inline-flex;
+    margin-left: 10%;
+    width: 100%;
+    padding-bottom: 4%;
+    padding-top: 4%;
+}
+.playlistHeader{
+    margin-right: 5%;
+}
+.playContorl{
+    height: 100px;
+}
+.playContorl:hover{
+    cursor: pointer;
+}
+.Playlist_Controls{
+    display: inline-flex;
+    width: 70%;
+}
+
