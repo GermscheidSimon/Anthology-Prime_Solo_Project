@@ -17,7 +17,7 @@ import Nav from '../Nav/Nav';
 import RenderPlayerControls from '../RenderPlayerControls/RenderPlayerControls'
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
-// linked pages
+  // linked pages
     // login required
 import Playlist from '../Playlist/Playlist';
 import InfoPage from '../InfoPage/InfoPage';
@@ -33,6 +33,9 @@ import AboutPage from '../AboutPage/AboutPage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'; // client side authorization 
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+
+import AlertSnackBar from '../AlertSnackBar/AlertSnackBar'
+
 
 import './App.css';
 
@@ -128,9 +131,14 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404. Either Page does not exist, or was unable to handle your request.</h1>} />
           </Switch>
+
+          <AlertSnackBar snackBarState={this.props.store.snackbarState} />
+
+          
           {this.props.store.user.id && 
             <RenderPlayerControls />
           }
+          
          
         </div>
       </Router>
