@@ -8,6 +8,7 @@ import currentSong from './currentSong.reducer'
 import playlist from './playlist.reducer'
 import playlists from './playlists.reducer'
 import playlistName from './playlistName.reducer'
+import snackBarState from './snackBarState.reducer'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   currentSong,    // state of current track being played 
   playlist,       // details list for currect playlist 
   playlists,       // list of playlists
-  playlistName
+  playlistName,
+  snackBarState
 });
 
 export default rootReducer;

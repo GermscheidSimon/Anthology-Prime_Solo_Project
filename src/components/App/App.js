@@ -132,7 +132,7 @@ class App extends Component {
             <Route render={() => <h1>404. Either Page does not exist, or was unable to handle your request.</h1>} />
           </Switch>
 
-          <AlertSnackBar snackBarState={this.props.store.snackbarState} />
+          <AlertSnackBar />
 
           
           {this.props.store.user.id && 

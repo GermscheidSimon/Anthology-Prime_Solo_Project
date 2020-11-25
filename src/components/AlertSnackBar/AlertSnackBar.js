@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import Slide from '@material-ui/core/Slide';
+import {connect} from 'react-redux'
 
-    function TransitionLeft(props) {
-    return <Slide {...props} direction="left" />;
+import Snackbar from '@material-ui/core/Snackbar';
+
+import mapStoreToProps from '../../redux/mapStoreToProps';
+
+import MuiAlert from '@material-ui/lab/Alert'
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
   
   
-    const  AlertSnackBar = () => {
+    const  AlertSnackBar = (props) => {
 
 
     const [open, setOpen] = useState(false);
+    
   
-        useEffect(() => {
-            setOpen(true);
-        }, [open])
+        useEffect(() => {            
+            setOpen(props.store.snackBarState.isRendered);
+        }, [open, props.store.snackBarState])
 
         const handleClose = () => {
-        setOpen(false);
+            props.dispatch({
+                type: "CLOSE_SNACKBAR"
+            })
         };
     
         const styles = {
             snackBar: {
                 postiion: 'fixed',
-                bottom: '150px',
+                top: '175px',
             }
         }
     
@@ -32,16 +40,19 @@ import Slide from '@material-ui/core/Slide';
         <Snackbar
           open={open}
           onClose={handleClose}
-          TransitionComponent={TransitionLeft}
-          message="I love snacks"
           key={'slideLeft'}
+          autoHideDuration={4000}
           style={styles.snackBar}
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left'
+            vertical: 'top',
+            horizontal: 'right'
           }}
-        />
+        >
+            <Alert severity={props.store.snackBarState.errorType}>
+                {props.store.snackBarState.message}
+            </Alert>
+        </Snackbar>
       </div>
     );
   }
-  export default AlertSnackBar;
+  export default connect(mapStoreToProps)(AlertSnackBar);

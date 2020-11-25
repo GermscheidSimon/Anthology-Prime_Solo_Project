@@ -1,10 +1,34 @@
 import axios from 'axios';
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, put } from 'redux-saga/effects';
+
+
+// snackbar Redux state messages
+const alertType = {
+  success: { 
+    isRendered: true,
+    message: 'Upload Successful!',
+    errorType: 'success'
+  },
+  failure: { 
+    isRendered: true,
+    message: 'Upload Failed!',
+    errorType: 'error'
+  },
+  start: { 
+    isRendered: true,
+    message: 'Begining Upload',
+    errorType: 'info'
+  }
+}
 
 
 function* uploadTrack(action) {
     try { // fetch specfic song. this will return ALL data including route to audio file
         console.log('upload new track');
+        yield put({
+          type: "DISPLAY_SNACKBAR",
+          payload: alertType.start
+        })
         
         const headers = {
             headers: { 'content-type': 'multipart/form-data' } // let the receivving server know the file is broken up
@@ -20,11 +44,17 @@ function* uploadTrack(action) {
               config: headers
           })
       }
-      yield alert('success')
+      yield put({
+        type: "DISPLAY_SNACKBAR",
+        payload: alertType.success
+      })
          
     } catch (error) {
         // through client error if unsuccessful
-        alert('failure')
+      yield put({
+        type: "DISPLAY_SNACKBAR",
+        payload: alertType.failure
+      })
       console.log('Upload failed',error);
     } 
   }
