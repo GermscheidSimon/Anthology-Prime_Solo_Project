@@ -21,7 +21,7 @@ import './PlayerControls.css'
  * 
  *      > this component gets its list of tracks from compoenntDidUpdate which is looking for new props (and array of songs to play)
  *      
- *      > See RenderPlayerControls compoennt for how this component is rendered(consumed)
+ *      
  * 
  */
 
@@ -30,13 +30,13 @@ class PlayerControls extends Component {
         currentSong: '/',         // initial state of component at the begining of lifecycle (ComponentDidUpdate)
         trackIsPlaying: false,    // state of currently playing track. see (TogglePlayback, ComponentDidUpdate)
         updateNewTrack: false,    // flag for switching songs  see(ComponentDidUpdate)
-        currentTime: 0,           // current time of track see (handleCurrentTime and interval)
+        currentTime: 0,           // current time of track (seconds.0000) see (handleCurrentTime and interval)
         sourceDuration: '00:00',  // song duration see handleSetSongDuration() and <audio> tag for onMetaDataLoad event
         songCompletion: 0,        // percent complete for Song Position slider
         interval: null,           // used to update DOM as while track is played. see (componentDidMount, handleCurrentTime)
-        locationInPlaylist: 0,    // initial location. Updated as next songs play from store.tracklist
+        locationInPlaylist: 0,    // initial location. index of trackqueue
         trackQueue: [],           // an array of objects containing all the songs to play. Updated in componentDidUpdate
-        volume: .5,               // local state of the volume for the audio tag
+        volume: .4,               // local state of the volume for the audio tag
     }
 
     audioElement = createRef() // instance of audio ref to manage HTML interactions (see audio tag in render)
@@ -74,7 +74,7 @@ class PlayerControls extends Component {
                 
                 console.log('songswitch');
                 
-               if (this.state.trackIsPlaying) { 
+               if (this.state.trackIsPlaying) {  
 
                     if(this.props.store.tracklist.restartQueue){
                         this.setState(() => ({
@@ -107,26 +107,26 @@ class PlayerControls extends Component {
                 if (this.state.updateNewTrack === true) { // if the component audio needs to be reloaded
                     console.log('reload audio');
                     console.log('state', this.state);
-                    
-                try {
-                    this.handleSongSwitch();
-                    this.setState({
-                        updateNewTrack: false 
-                    })
-                } catch (error) {
-                    console.log(error);
-                }
+                    try {
+                        this.handleSongSwitch();
+                        this.setState({
+                            updateNewTrack: false 
+                        })
+                    } catch (error) {
+                        console.log(error);
+                    }
             }
         }
     }
 
-    // audio sources cannot be directly modified. After a source is changed the element must undergo a load() phase
+    // audio sources cannot be directly modified. After a source is changed the element must undergo a load event
     // this function handles that task. It will also set the volume of the track to the state volume so that it doesn't jump back to default
     handleSongSwitch = () => {
         console.log('volume:', this.state.volume);
         
         this.audioElement.current.pause();
         this.audioElement.current.load();
+        // see onCanPlay event for .play() method. Playing directly here will cause choppy audio 
         this.handleSongCompletion();
     }
 
@@ -211,6 +211,7 @@ class PlayerControls extends Component {
             sourceDuration: this.convertTimeToDigital(this.audioElement.current.duration)
         })
     }
+    
     handleTrackSeek = (event) => {
         let trackSeekPosition = event.target.value / 100 // track position between 0% and 100%
 
@@ -225,10 +226,11 @@ class PlayerControls extends Component {
         this.setState({
             songCompletion: this.audioElement.current.currentTime / this.audioElement.current.duration
         })
-
     }
+
+    // Tied to onCanPlay --> Can control element properties after load, so setting state volume here before playling track
     playSongWhenLoaded = () => {
-        this.audioElement.current.volume = this.state.volume
+        this.audioElement.current.volume = this.state.volume 
 
         this.audioElement.current.play()
     }
@@ -249,7 +251,7 @@ class PlayerControls extends Component {
             <div className="ControlsPod">
             {/* HTML 5 audio Component. Inviisble On the DOM. Dependent on having a source at all times */}
             <audio 
-                ref={this.audioElement}                       // to interact directly with this HTML 5 element, suing a ref instance 
+                ref={this.audioElement}                       // to interact directly with this HTML 5 element, using a ref instance 
                 onEnded={this.handNextTrack}                  // when track complete load next track
                 onLoadedMetadata={this.handleSetSongDuration} // song metadata is loadeded during the load event. It needs to be present before calling it.
                 onCanPlay={this.playSongWhenLoaded}           // Wait for the audio element to be ready before attemptempting playback

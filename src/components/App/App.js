@@ -29,7 +29,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import AboutPage from '../AboutPage/AboutPage';
 
 
-// login & register -- 
+  // login & register -- 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'; // client side authorization 
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';

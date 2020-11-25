@@ -62,17 +62,20 @@ handleTrackInput = (event) => {
         this.handleTrackLabelRead(file)
     }
 }
-hahandleSubmit = () => {
-    console.log(this.state);
+hahandleSubmit = () => { 
+    let stagedTracks = []
     
     for (const track of this.state.ReadyToUploadTracks) {
         let trackFile = new FormData();
         trackFile.append('file', track.file)
-        this.props.dispatch({
-            type: "UPLOAD_TRACK",
-            payload: {file: trackFile, trackInfo: track.fileinfo}
-        })
+        let trackFileObj = {file: trackFile, trackInfo: track.fileinfo}
+        stagedTracks.push(trackFileObj);
     }
+
+    this.props.dispatch({
+        type: "UPLOAD_TRACK",
+        payload: stagedTracks
+     })
 }
 
 

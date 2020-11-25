@@ -12,18 +12,23 @@ function* uploadTrack(action) {
         
         // the parameters here help identify the song. they come from the AddNewTrack state when the song is dispatched here.
         // action.payload.file represents the FormData object being passed as a multipart data (buffered)
-        yield axios({
-            method: "POST",
-            url: `/api/song/${action.payload.trackInfo.artist}/${action.payload.trackInfo.album}/${action.payload.trackInfo.name}`,
-            data: action.payload.file,
-            config: headers
-        })
+          for (const newTrack of action.payload) {
+             yield axios({
+              method: "POST",
+              url: `/api/song/${newTrack.trackInfo.artist}/${newTrack.trackInfo.album}/${newTrack.trackInfo.name}`,
+              data: newTrack.file,
+              config: headers
+          })
+      }
+      yield alert('success')
+         
     } catch (error) {
         // through client error if unsuccessful
+        alert('failure')
       console.log('Upload failed',error);
-      alert('Upload failed! please try again.')
-    }
+    } 
   }
+ 
 
   function* uploadTrackSaga() {
       yield takeEvery('UPLOAD_TRACK', uploadTrack)

@@ -39,8 +39,6 @@ class Playlist extends Component {
         console.log(this.props.store.playlistName);
         
     }
-
-
  
     parsePlaylistData = () => {
         
