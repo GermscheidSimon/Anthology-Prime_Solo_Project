@@ -42,9 +42,7 @@ class PlayerControls extends Component {
     audioElement = createRef() // instance of audio ref to manage HTML interactions (see audio tag in render)
 
     // once the component is rendered, begin playing back the tracklist
-    componentDidMount = () => {
-        console.log(this.props.trackQueue, this.state);
-        
+    componentDidMount = () => {        
         let intervalID = setInterval(this.handleCurrentTime, 1000);
         this.setState(() => ({
             interval: intervalID,
@@ -69,9 +67,7 @@ class PlayerControls extends Component {
 
     componentDidUpdate = () => {
         try {            
-            if (this.props.store.tracklist.trackQueue !== this.state.trackQueue) {
-                console.log(this.props.store.tracklist);
-                
+            if (this.props.store.tracklist.trackQueue !== this.state.trackQueue) {                
                 console.log('songswitch');
                 
                if (this.state.trackIsPlaying) {  
@@ -106,8 +102,7 @@ class PlayerControls extends Component {
         } finally{ 
                 if (this.state.updateNewTrack === true) { // if the component audio needs to be reloaded
                     console.log('reload audio');
-                    console.log('state', this.state);
-                    try {
+                     try {
                         this.handleSongSwitch();
                         this.setState({
                             updateNewTrack: false 

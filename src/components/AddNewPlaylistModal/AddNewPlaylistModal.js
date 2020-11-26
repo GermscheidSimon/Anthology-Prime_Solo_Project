@@ -9,6 +9,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import {makeStyles} from '@material-ui/core'
+import Paper from '@material-ui/core/Paper'
+import QueueIcon from '@material-ui/icons/Queue';
+
+
 
 
 function AddNewPlaylistModal(props) {
@@ -40,10 +45,41 @@ function AddNewPlaylistModal(props) {
   const handleChange = (event) => {
     setName(event.target.value)
   }
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      '& > *': {
+        margin: theme.spacing(2),
+        width: theme.spacing(25),
+        height: theme.spacing(25),
+      },
+    },
+    paper: {
+      backgroundColor:  '#008183',
+      "&:hover, &:focus": {
+        backgroundColor: '#369091'
+      },
+      color: 'white',
+      textAlign: 'center',
+      paddingTop: '10px'
+    }
+  }));
+
+  const classes = useStyles();
+
+
   return (
     <div>
-      <div  className="playlist-card" onClick={handleClickOpen}>
-        Add New Playlist
+      <div  className={classes.root} onClick={handleClickOpen}>
+      <Paper  
+          className={classes.paper}
+          elevation={6} 
+        >
+            <div > Add New Playlist </div>
+            <hr style={{color: '#1b2427c7'}}></hr>
+            <QueueIcon style={{ fontSize: 120, color: 'white'}}/>
+        </Paper>      
       </div>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">New Playlist</DialogTitle>

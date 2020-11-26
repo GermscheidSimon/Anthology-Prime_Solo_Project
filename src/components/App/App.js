@@ -12,12 +12,10 @@ import {
 import { connect } from 'react-redux';
 
 // main app componentes
-import Nav from '../Nav/Nav';
-    // Render player controls handles Player controls when user is signed in.
-import RenderPlayerControls from '../RenderPlayerControls/RenderPlayerControls'
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
   // linked pages
+  import Nav from '../Nav/Nav';
     // login required
 import Playlist from '../Playlist/Playlist';
 import InfoPage from '../InfoPage/InfoPage';
@@ -36,6 +34,9 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 
 import AlertSnackBar from '../AlertSnackBar/AlertSnackBar'
 
+  // Render player controls handles Player controls when user is signed in.
+import RenderPlayerControls from '../RenderPlayerControls/RenderPlayerControls'
+
 
 import './App.css';
 
@@ -51,10 +52,10 @@ class App extends Component {
         <div className="appMain">
           <Nav />
           <Switch>
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+              {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
 
-            {/* Visiting localhost:3000/about will show the about page. */}
+              {/* Visiting localhost:3000/about will show the about page. */}
             <Route
               // shows AboutPage at all times (logged in or not)
               exact
@@ -74,10 +75,10 @@ class App extends Component {
               component={AddNewTrack} 
             />
 
-            {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+              {/* For protected routes, the view could show one of several things on the same route.
+              Visiting localhost:3000/user will show the UserPage if the user is logged in.
+              If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
+              Even though it seems like they are different pages, the user is always on localhost:3000/user */}
             <ProtectedRoute
               exact
               path="/library"
@@ -97,9 +98,9 @@ class App extends Component {
               component={PlaylistPage}
             />
 
-            {/* When a value is supplied for the authRedirect prop the user will
-            be redirected to the path supplied when logged in, otherwise they will
-            be taken to the component and path supplied. */}
+              {/* When a value is supplied for the authRedirect prop the user will
+              be redirected to the path supplied when logged in, otherwise they will
+              be taken to the component and path supplied. */}
             <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/Library"
@@ -128,8 +129,8 @@ class App extends Component {
               authRedirect="/library"
             />
             
-            {/* If none of the other routes matched, we will show a 404. */}
-            <Route render={() => <h1>404. Either Page does not exist, or was unable to handle your request.</h1>} />
+              {/* If none of the other routes matched, we will show a 404. */}
+            <Route render={() => <h1>404. Either Page does not exist, or server was unable to handle your request.</h1>} />
           </Switch>
 
           <AlertSnackBar />
