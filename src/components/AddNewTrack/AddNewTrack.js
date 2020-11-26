@@ -64,7 +64,7 @@ handleTrackInput = (event) => {
 }
 hahandleSubmit = () => { 
     let stagedTracks = []
-    
+
     for (const track of this.state.ReadyToUploadTracks) {
         let trackFile = new FormData();
         trackFile.append('file', track.file)
@@ -95,7 +95,7 @@ hahandleSubmit = () => {
                                 <button onClick={() => this.deleteTrackFromUploadList(track.fileinfo)}>delete</button>
                             </div>
                         )
-                    })}
+                    })}v
       </div>
     );
   }

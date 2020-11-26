@@ -45,7 +45,7 @@ function PlaylistItem(props) {
     <div  className={classes.root}>
         <Paper  
           className={classes.paper}
-          elevation={6} 
+          elevation={10} 
           onClick={() => navigateToPlaylist(props.playlist.id)}
         >
         

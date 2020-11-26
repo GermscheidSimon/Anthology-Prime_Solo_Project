@@ -4,6 +4,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import TrackList from '../TrackList/TrackList'
 import PlayCircleIcon from '../PlayCircleIcon/PlayCircleIcon'
+import IconButton from '@material-ui/core/IconButton'
 
 import PlaylistIcon from '../PlaylistIcon/PlaylistIcon'
 
