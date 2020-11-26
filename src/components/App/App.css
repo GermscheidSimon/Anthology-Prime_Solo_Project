@@ -114,9 +114,19 @@ Form Treatment
   max-width: 100%;
   padding: 25px;
   margin: 0 auto 20px;
-  background-color: #efefef;
+  background-color: #1b2427c7;
   border-radius: 3px;
-  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.2);
+}
+.formPanel input{
+  padding: 2px;
+  margin-bottom: 8px;
+}
+.formPanel label{
+  padding-top: 20px;
+}
+.loginInput{
+  margin-left: auto;
 }
 
 

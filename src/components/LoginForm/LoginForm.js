@@ -40,30 +40,30 @@ class LoginForm extends Component {
           </h3>
         )}
         <div>
-          <label htmlFor="username">
-            Username:
-            <input
+          <center>
+          <input
               type="text"
               name="username"
               required
               value={this.state.username}
               onChange={this.handleInputChangeFor('username')}
+              placeholder="Enter Username"
             />
-          </label>
+            </center>
         </div>
         <div>
-          <label htmlFor="password">
-            Password:
-            <input
+          <center>
+          <input
               type="password"
               name="password"
+              placeholder="Enter Password"
               required
               value={this.state.password}
               onChange={this.handleInputChangeFor('password')}
             />
-          </label>
+            </center>
         </div>
-        <div>
+        <div className="loginInput">
           <input className="btn" type="submit" name="submit" value="Log In" />
         </div>
       </form>

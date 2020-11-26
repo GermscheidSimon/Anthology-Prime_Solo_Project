@@ -7,6 +7,9 @@ import PauseButton from '../PauseButton/PauseButton'
 import NextButton from '../NextButton/NextButton'
 import PrevButton from '../PrevButton/PrevButton'
 
+import TrackQueue from '../TrackQueue/TrackQueue'
+
+
 import './PlayerControls.css'
 
 /**
@@ -293,8 +296,7 @@ class PlayerControls extends Component {
                 </div>
         {/* -- Song Queue toggle -- */}
                 <div className="songQueue">
-                    <button>Display Song Queue</button>
-                    
+                        <TrackQueue/>
                 </div>
                 </div>
       </div>

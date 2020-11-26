@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import './Nav.css';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
+import LogOutButton from '../LogOutButton/LogOutButton'
+
 const Nav = (props) => {
   let loginLinkData = {
     path: '/login',
@@ -23,24 +25,17 @@ const Nav = (props) => {
             Anthology
           </Link>
         </div>
-      
-        {/* Always show this link since the about page is not protected */}
-        {/* <div className="nav-right">
-            <Link className="profile-link" to="/about">
-              About
-            </Link>
-            <LogOutButton className="profile-link" />
-        </div> */}
+       {props.store.user.id &&
+         <LogOutButton/>
+         }
+
         <div className="nav-cluster">
-        <Link className="nav-link" to={loginLinkData.path}>
-          {/* Show this link if they are logged in or not,
-          but call this link 'Home' if they are logged in,
-          and call this link 'Login / Register' if they are not */}
-          {loginLinkData.text}
-        </Link>
         {/* Show the link to the info page and the logout button if the user is logged in */}
         {props.store.user.id && (
           <>
+           <Link className="nav-link" to="/library">
+              Library
+            </Link>
             <Link className="nav-link" to="/library/playlists">
               Playlists
             </Link>
@@ -50,7 +45,6 @@ const Nav = (props) => {
             <Link  className="nav-link" to="/addNewTrack">
               Upload
             </Link>
-            
           </>
         )}
         </div>

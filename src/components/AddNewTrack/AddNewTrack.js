@@ -109,10 +109,10 @@ hahandleSubmit = () => {
                 <Button 
                     style={{
                         marginBottom: '10px',
-                        marginLeft: '35%'
+                        marginLeft: '35%',
+                        color: "#008183"
                         }}
                     variant="contained" 
-                    color="secondary" 
                     onClick={this.hahandleSubmit}
                 >
                     Upload
