@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 
-import FileUploadIcon from '../FileUploadIcon/FileUploadIcon'
 import './AddNewTrack.css'
+import Button from '@material-ui/core/Button'
 
 
 const {read} = require('jsmediatags')
@@ -90,26 +90,44 @@ hahandleSubmit = () => {
 
   render() {
     return (
-      <div className="addTrackFormWrap">
-          <div>
-             <div className="trackFileLabel" htmlFor="trackFile">Drop files here or click to browse:</div>
-                <div className="fileDropZone" type="file" >
-                    <input  name="newSong" className="trackFile"  onChange={this.handleTrackInput} type="file" multiple onDragEnd={this.handleTrackInput} onDrop={this.handleTrackInput} />                       
+      <div className="addTrackPageWrap">
+            <div className="addTrackForm">
+                <div className="trackFormHeader">
+                    <div className="trackFileLabel" htmlFor="trackFile">Drop files here or click to browse:</div>
                 </div>
-            
-                <button onClick={this.hahandleSubmit}>Upload Track</button>
-            </div>
+                <div className="fileDropZone" type="file" >
+                    <input  
+                        name="newSong" 
+                        className="trackFile"  
+                        onChange={this.handleTrackInput} 
+                        type="file" 
+                        multiple 
+                        onDragEnd={this.handleTrackInput} 
+                        onDrop={this.handleTrackInput} 
+                    />                       
+                </div>
+                <Button 
+                    style={{
+                        marginBottom: '10px',
+                        marginLeft: '35%'
+                        }}
+                    variant="contained" 
+                    color="secondary" 
+                    onClick={this.hahandleSubmit}
+                >
+                    Upload
+                </Button>
 
+            </div>
             <table className="UploadTable">
-            <thead className="trackListTableHead">
-              <tr>
-                <th>Track Name</th>
-                <th>Artist</th>
-                <th>Album</th>
-                <th></th>
-              </tr>
-            </thead> 
-            
+                <thead className="trackListTableHead">
+                <tr>
+                    <th>Track Name</th>
+                    <th>Artist</th>
+                    <th>Album</th>
+                    <th></th>
+                </tr>
+                </thead> 
             <tbody className="UploadTablebodyWrap">
                 {this.state.ReadyToUploadTracks.map( track => {
                         return (

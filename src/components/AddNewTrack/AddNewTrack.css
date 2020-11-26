@@ -7,24 +7,37 @@
     cursor: pointer;
     margin-top: -300px;
 }
-.addTrackFormWrap{
+.addTrackPageWrap{
     width: 80%;
     margin-left: auto;
     margin-right: auto;
 }
+.addTrackForm{
+    width: 100%;
+}
+.trackFormHeader{
+    padding-bottom: 10px;
+    width: 100%;
+    display: inline-flex;
+}
+
 .fileDropZone{
     width: 40%;
     background-color: #008183;
     height: 200px;
     border: 3px dashed #1b2427c7;
+    margin-bottom: 30px;
 }
 .trackFileLabel{
     text-align: left;
-    width: 100%;
+    width: 50%;
+    padding-bottom: 10px;
 }
 .fileDropZone:hover {
     background-color: #369091;
 }
+
+
 .UploadTable{
     border-collapse: collapse;
     width: 100%;
@@ -42,7 +55,6 @@
 }
 .UploadTablebody{
     margin: auto;
-
 }
 .UploadTablebody th{
     padding-top: 12px;
