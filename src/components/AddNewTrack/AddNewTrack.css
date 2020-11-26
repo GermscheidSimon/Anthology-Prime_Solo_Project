@@ -1,0 +1,52 @@
+.trackFile{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+.trackFile:hover{
+    cursor: pointer;
+    margin-top: -300px;
+}
+.addTrackFormWrap{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.fileDropZone{
+    width: 40%;
+    background-color: #008183;
+    height: 200px;
+    border: 3px dashed #1b2427c7;
+}
+.trackFileLabel{
+    text-align: left;
+    width: 100%;
+}
+.fileDropZone:hover {
+    background-color: #369091;
+}
+.UploadTable{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.UploadTableTR{
+    border-bottom: 1px solid grey;
+    color: lightgrey;
+    background-color: #1b2427c7;
+}
+.UploadTableTR td{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+}
+.UploadTablebody{
+    margin: auto;
+
+}
+.UploadTablebody th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+}
+

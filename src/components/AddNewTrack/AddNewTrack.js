@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+
+
+import FileUploadIcon from '../FileUploadIcon/FileUploadIcon'
+import './AddNewTrack.css'
+
+
 const {read} = require('jsmediatags')
 
 class AddNewTrack extends Component {
@@ -57,7 +63,9 @@ deleteTrackFromUploadList = (fileinfo) => {
 }
 
 handleTrackInput = (event) => {
-    let files = event.target.files // Files is an array of items in the file input 
+  let files = event.target.files // Files is an array of items in the file input 
+    console.log(event);
+    
     for (const file of files) {
         this.handleTrackLabelRead(file)
     }
@@ -79,23 +87,42 @@ hahandleSubmit = () => {
 }
 
 
+
   render() {
     return (
       <div className="addTrackFormWrap">
-                <label  htmlFor="trackFile">Track File Upload: </label>
-                <input  name="newSong" className="trackFile" onDragEnd={this.handleTrackInput} onChange={this.handleTrackInput} type="file"  />
+          <div>
+             <div className="trackFileLabel" htmlFor="trackFile">Drop files here or click to browse:</div>
+                <div className="fileDropZone" type="file" >
+                    <input  name="newSong" className="trackFile"  onChange={this.handleTrackInput} type="file" multiple onDragEnd={this.handleTrackInput} onDrop={this.handleTrackInput} />                       
+                </div>
+            
                 <button onClick={this.hahandleSubmit}>Upload Track</button>
+            </div>
 
+            <table className="UploadTable">
+            <thead className="trackListTableHead">
+              <tr>
+                <th>Track Name</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th></th>
+              </tr>
+            </thead> 
+            
+            <tbody className="UploadTablebodyWrap">
                 {this.state.ReadyToUploadTracks.map( track => {
                         return (
-                            <div>
-                                <div>{track.fileinfo.name}</div>
-                                <div>{track.fileinfo.artist}</div>
-                                <div>{track.fileinfo.album}</div>
-                                <button onClick={() => this.deleteTrackFromUploadList(track.fileinfo)}>delete</button>
-                            </div>
+                            <tr className="UploadTableTR">
+                                <td>{track.fileinfo.name}</td>
+                                <td>{track.fileinfo.artist}</td>
+                                <td>{track.fileinfo.album}</td>
+                                <td><button onClick={() => this.deleteTrackFromUploadList(track.fileinfo)}>Remove</button></td>
+                            </tr>
                         )
-                    })}v
+                    })}
+            </tbody>
+        </table>
       </div>
     );
   }
