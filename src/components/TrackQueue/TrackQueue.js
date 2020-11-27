@@ -12,6 +12,15 @@ function TrackQueue(props) {
         setQueueRenderStatus(!trackQueueRendered)
     }
 
+    const checkIfCurrentSong = (track, index) => {
+        console.log(track)
+        if (track.name === props.currentSong.name && index === props.cuurentIndex) {
+            return "currentSongStyling"
+        } else {
+            return "queueRowStyling"
+        }
+    }
+
 
   return (
     <div>
@@ -32,8 +41,11 @@ function TrackQueue(props) {
                                 {
                                     props.store.tracklist.trackQueue.length > 0 ?
                                         props.store.tracklist.trackQueue.map( (track, index) => {
+
+                                            let styleCurrentTrack = checkIfCurrentSong(track, index);
+
                                             return( 
-                                                <tr>
+                                                <tr className={styleCurrentTrack} key={index}>
                                                     <td>{index + 1}</td>
                                                     <td>{track.name}</td>
                                                 </tr>

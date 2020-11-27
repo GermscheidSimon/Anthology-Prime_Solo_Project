@@ -296,7 +296,7 @@ class PlayerControls extends Component {
                 </div>
         {/* -- Song Queue toggle -- */}
                 <div className="songQueue">
-                        <TrackQueue/>
+                        <TrackQueue cuurentIndex={this.state.locationInPlaylist} currentSong={track}/>
                 </div>
                 </div>
       </div>

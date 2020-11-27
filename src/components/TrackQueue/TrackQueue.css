@@ -48,6 +48,17 @@
     padding-top: 4px;
     border-bottom: 1px solid #788991;
 }
+.currentSongStyling{
+    color: white;
+    background-color: #4c6672;
+    border-top: 2px solid #9aa4a8;
+    border-bottom: 2px solid #9aa4a8;
+
+}
+.queueRowStyling{
+    color: rgb(171, 180, 184);
+}
+
 
 @keyframes QueueTransitionUp {
     from {width: 0; height: 0; font-size: 0;}

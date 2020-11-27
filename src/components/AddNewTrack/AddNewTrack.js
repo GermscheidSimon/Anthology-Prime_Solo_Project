@@ -32,9 +32,11 @@ handleTrackLabelRead = (file) => {
     read(file, {
         onSuccess: (tag) => { // read expects a callback function called onSuccess to exist, and will fire it off if MediaFileReader is able to read the file.
             console.log(tag);
-            
+
+            let title = tag.tags.title
+                title = title.replace('/', '_')
             let newTrackInfo = {
-                name: tag.tags.title,
+                name: title,
                 artist: tag.tags.artist,
                 album: tag.tags.album,
                 picture:  tag.tags.picture
