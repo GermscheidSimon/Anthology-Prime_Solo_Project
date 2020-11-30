@@ -84,7 +84,8 @@ class PlayerControls extends Component {
                         }));
                     } else {
                         this.setState(() => ({
-                            trackQueue: this.props.store.tracklist.trackQueue,             
+                            trackQueue: this.props.store.tracklist.trackQueue,  
+                            trackIsPlaying: true, 
                         }));
                     }
                } else {
@@ -164,6 +165,7 @@ class PlayerControls extends Component {
                 this.setState(() => ({
                     locationInPlaylist: this.state.locationInPlaylist + 1,
                     currentSong: this.state.trackQueue[this.state.locationInPlaylist + 1],
+                    trackIsPlaying: true
                 }));
                 
             } catch (error) {
@@ -184,6 +186,7 @@ class PlayerControls extends Component {
                 this.setState(() => ({
                     locationInPlaylist: this.state.locationInPlaylist - 1,
                     currentSong: this.state.trackQueue[this.state.locationInPlaylist - 1],
+                    trackIsPlaying: true
                 }));
             } catch (error) {
                 console.log(error);

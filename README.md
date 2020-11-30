@@ -9,28 +9,25 @@
 
 ## Features:
   * full featured music player
-    > volume controls
-    > track position seeking
-    > playlist // queue 
-    > play/pause, previous song, next song
-    > song info display   
+    - volume controls
+    - track position seeking
+    - playlist // queue 
+    - play/pause, previous song, next song
+    - song info display   
   
 
   * Music Library List
-    > interactive table to play music, add music to the queue, or delete the music from your collection
+    - interactive table to play music, add music to the queue, or delete the music from your collection
   
   * Playlist create / management
-    > allows users to organize their music into playlist which can be played back in bulk
-    > controls within the TrackList component allow users to add songs to their existing playlists
+    - allows users to organize their music into playlist which can be played back in bulk
+    - controls within the TrackList component allow users to add songs to their existing playlists
 
   * Track Upload
-    > Allows users to upload new music to the database. 
-    > includes feedback on the status of new track uploads (snackBar alerts from material UI)
-    > displays list of track currently trying to be uploaded
+    - Allows users to upload new music to the database. 
+    - includes feedback on the status of new track uploads (snackBar alerts from material UI)
+    - displays list of track currently trying to be uploaded
 
-
-
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
 
 ## Use the Template for This Repository (Don't Clone) 
 
@@ -74,19 +71,10 @@ Directory Structure:
 
 - `src/` contains the React application
 - `public/` contains static assets for the client-side
+- `public/FS_songs` contains the database of songs for this build when a user uploads them
 - `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
 - `server/` contains the Express App
 
-
-## Deployment
-
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
 
 ## Update Documentation
 
