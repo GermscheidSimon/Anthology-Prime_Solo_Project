@@ -21,6 +21,8 @@
 .songInfoWrap{
     margin-left: 1%;
     margin-right: auto;
+    width: 400px;
+    height: 95%;
 }
 .songTitle{
     font-weight: bold;

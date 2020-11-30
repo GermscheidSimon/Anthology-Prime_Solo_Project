@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
+import TrackQueueBtn from '../TrackQueueBtn/TrackQueueBtn'
+
 import './TrackQueue.css'
 
 function TrackQueue(props) {
@@ -24,7 +26,9 @@ function TrackQueue(props) {
 
   return (
     <div>
-    <button onClick={()=> handleTrackQueueOpen()}>Queue</button>
+        <div onClick={()=> handleTrackQueueOpen()}>
+            <TrackQueueBtn />
+        </div>
         {
             trackQueueRendered ? 
                 <div className="trackQueueWrap">

@@ -68,7 +68,7 @@ class TrackList extends Component {
         
           { 
               tracks.length < 1 ?
-                <div className="emptyPlayList">There Doesn't Seem To be anything here yet!</div>
+                <div className="emptyPlayList">There doesn't seem to be anything here yet!</div>
               :
 
               <></>

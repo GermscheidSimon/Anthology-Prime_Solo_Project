@@ -14,7 +14,6 @@ CREATE TABLE "songs" (
     "name" VARCHAR(256),
     "album" VARCHAR(256),
     "artist" VARCHAR(256),
-    "length" VARCHAR(16)
     "user_id" INT REFERENCES "user"
 );
 
