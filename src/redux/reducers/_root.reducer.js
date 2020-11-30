@@ -4,7 +4,6 @@ import user from './user.reducer';
 
 import libraryReducer from './library.reducer'
 import tracklist from './tracklist.reducer'
-import currentSong from './currentSong.reducer'
 import playlist from './playlist.reducer'
 import playlists from './playlists.reducer'
 import playlistName from './playlistName.reducer'
@@ -21,7 +20,6 @@ const rootReducer = combineReducers({
   user,           // will have an id and username if someone is logged in
   libraryReducer, // contains user library array from fetchFromSongs
   tracklist,      // stores track queue when playing songs
-  currentSong,    // state of current track being played 
   playlist,       // details list for currect playlist 
   playlists,       // list of playlists
   playlistName,

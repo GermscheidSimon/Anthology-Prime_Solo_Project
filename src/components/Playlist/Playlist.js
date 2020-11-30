@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
-import TrackList from '../TrackList/TrackList'
-import PlayCircleIcon from '../PlayCircleIcon/PlayCircleIcon'
-import IconButton from '@material-ui/core/IconButton'
 
+import PlayCircleIcon from '../PlayCircleIcon/PlayCircleIcon'
 import PlaylistIcon from '../PlaylistIcon/PlaylistIcon'
 
 import PlaylistMenu from '../PlaylistMenu/PlaylistMenu'
+import TrackList from '../TrackList/TrackList'
 
 import './Playlist.css'
 

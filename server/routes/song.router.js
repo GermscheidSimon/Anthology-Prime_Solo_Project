@@ -100,10 +100,10 @@ router.post('/:artist/:album/:name', fileUpload({ safeFileNames: true }), async 
         `/${filename}`
     ]
     const connection = await pool.connect();
-    // creating async transaction incase the mv failes, or the upload doesn't work. This should avoid creating a SQL record on error
+    // creating async transaction in case the mv failes, or the upload doesn't work. This should avoid creating a SQL record on error
     try {
             await connection.query("BEGIN")
-            await req.files.file.mv(songDir);
+            await req.files.file.mv(songDir); // move files into directory
             await connection.query(queryText, queryInputs)
             await connection.query('COMMIT')
             res.sendStatus(201)
@@ -118,6 +118,11 @@ router.post('/:artist/:album/:name', fileUpload({ safeFileNames: true }), async 
         res.sendStatus(403);
     }
 })
+
+/**
+ * DELETE track by ID 
+ * > remove relations from junction table first
+ */
 router.delete('/:id', async (req, res) => {
     if (req.isAuthenticated) {
 

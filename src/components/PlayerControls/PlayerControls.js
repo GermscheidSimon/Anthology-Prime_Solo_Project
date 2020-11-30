@@ -71,7 +71,6 @@ class PlayerControls extends Component {
     componentDidUpdate = () => {
         try {            
             if (this.props.store.tracklist.trackQueue !== this.state.trackQueue) {                
-                console.log('songswitch');
                 
                if (this.state.trackIsPlaying) {  
 
@@ -89,8 +88,7 @@ class PlayerControls extends Component {
                         }));
                     }
                } else {
-                   console.log('start playling, was not playling');
-                   
+                   if(this.props.store.tracklist.restartQueue){
                     this.setState(() => ({
                         trackQueue: this.props.store.tracklist.trackQueue,       //sets local trackQueue array
                         currentSong: this.props.store.tracklist.trackQueue[0],   // setting the current song to the firs track in the playlist
@@ -98,6 +96,12 @@ class PlayerControls extends Component {
                         updateNewTrack: true,               // setting a variable so componentDidUpdate knows to reload source
                         trackIsPlaying: true,                // when the source arrives, make sure state is set to 'is playing' to manage the play/pause controls
                     }));
+                   } else {
+                    this.setState(() => ({
+                        trackQueue: this.props.store.tracklist.trackQueue,       //sets local trackQueue array
+                    }));
+                   }
+                    
                }
     
             }    
