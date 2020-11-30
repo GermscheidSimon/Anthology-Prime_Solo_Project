@@ -15,9 +15,9 @@
     - play/pause, previous song, next song
     - song info display   
 
-![musicPlayer_pic]('./documentation/images/musicPlayer.png')  
+![musicPlayer_pic]('documentation/images/musicPlayer.png')  
   
-![playerQueue_pic]('./documentation/images/playerQueue.png')
+![playerQueue_pic]('documentation/images/playerQueue.png')
 
   * Music Library List
     - interactive table to play music, add music to the queue, or delete the music from your collection
@@ -26,7 +26,7 @@
     - allows users to organize their music into playlist which can be played back in bulk
     - controls within the TrackList component allow users to add songs to their existing playlists
 
-![Playlist_pic]('./documentation/images/Playlistview.png')  
+![Playlist_pic]('documentation/images/Playlistview.png')  
 
 
   * Track Upload
@@ -34,7 +34,7 @@
     - includes feedback on the status of new track uploads (snackBar alerts from material UI)
     - displays list of track currently trying to be uploaded
 
-![uploadview_Pic]('./images/uploadview.png')
+![uploadview_Pic]('ducumentation/images/uploadview.png')
 
 ## Use the Template for This Repository (Don't Clone) 
 
