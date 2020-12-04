@@ -6,7 +6,7 @@ function* fetchPlaylists(action) {
     try { // fetch specfic song. this will return ALL data including route to audio file
       console.log('fetch playlist');
       
-      const playlistsData = yield axios.get(`api/playlist/`)
+      const playlistsData = yield axios.get(`http://73.37.215.93:2550/api/playlist/`)
         // add track to the currently playing tracklist 
       yield put({
           type: "SET_ALL_PLAYLISTS", 
@@ -23,7 +23,7 @@ function* fetchPlaylists(action) {
     try {
       console.log(action.payload);
       
-        yield axios.post('/api/playlist', action.payload)
+        yield axios.post('http://73.37.215.93:2550/api/playlist', action.payload)
         yield put({
             type: "FETCH_PLAYLISTS"
         })
@@ -42,7 +42,7 @@ function* AddToPlaylist(action) {
     try {
       console.log(action.payload);
       
-      yield axios.post(`/api/playlist/${action.payload.playlistID}/${action.payload.trackID}`)
+      yield axios.post(`http://73.37.215.93:2550/api/playlist/${action.payload.playlistID}/${action.payload.trackID}`)
       // add alert to user that it was added
     } catch (error) {
       console.log(error);
@@ -50,7 +50,7 @@ function* AddToPlaylist(action) {
 }
 function* removeFromPlaylist(action) {
       try {
-        yield axios.delete(`/api/playlist/${action.payload.playlistID}/${action.payload.trackID}`)
+        yield axios.delete(`http://73.37.215.93:2550/api/playlist/${action.payload.playlistID}/${action.payload.trackID}`)
         yield put({type: "FETCH_PLAYLIST_DETAILS", payload: {id: action.payload.playlistID}})
       } catch (error) {
         console.log(error);
@@ -58,7 +58,7 @@ function* removeFromPlaylist(action) {
 }
 function* EditPlaylistName(action) {
     try {
-      yield axios.put(`/api/playlist/edit/${action.payload.playlistID}/${action.payload.playlistName}`)
+      yield axios.put(`http://73.37.215.93:2550/api/playlist/edit/${action.payload.playlistID}/${action.payload.playlistName}`)
       yield put({
         type: "FETCH_PLAYLIST_DETAILS",
         payload: {id: action.payload.playlistID}

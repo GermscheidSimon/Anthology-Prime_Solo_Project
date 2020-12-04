@@ -38,7 +38,7 @@ function* playPlaylist(action) {
 }
 function* playlistName(action) {
     try {
-        const playlistName = yield axios.get(`/api/playlist/name/${action.payload}`)
+        const playlistName = yield axios.get(`http://73.37.215.93:2550/api/playlist/name/${action.payload}`)
         yield put({
             type: 'SET_PLAYLISTNAME',
             payload: playlistName.data

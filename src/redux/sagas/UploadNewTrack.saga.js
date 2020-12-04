@@ -39,7 +39,7 @@ function* uploadTrack(action) {
           for (const newTrack of action.payload) {
              yield axios({
               method: "POST",
-              url: `/api/song/${newTrack.trackInfo.artist}/${newTrack.trackInfo.album}/${newTrack.trackInfo.name}`,
+              url: `http://73.37.215.93:2550/api/song/${newTrack.trackInfo.artist}/${newTrack.trackInfo.album}/${newTrack.trackInfo.name}`,
               data: newTrack.file,
               config: headers
           })

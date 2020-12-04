@@ -6,7 +6,7 @@ function* fetchUserLibrary() {
   try{  // fetch an array of song information for Library view
     console.log('fetch library');
     
-        const songLibrary = yield axios.get('/api/song'); 
+        const songLibrary = yield axios.get('http://73.37.215.93:2550/api/song'); 
         // add the retrieved data to the library reducer if successfully quiried
         yield put({
             type: 'SET_LIBRARY', 
@@ -23,7 +23,7 @@ function* fetchSong(action) {
   try { // fetch specfic song. this will return ALL data including route to audio file
       console.log('fetch song', action.payload);
       
-      const songData = yield axios.get(`api/song/${action.payload}`)
+      const songData = yield axios.get(`http://73.37.215.93:2550/api/song/${action.payload}`)
         // add track to the currently playing tracklist 
     yield put({
           type: "SET_TRACKLIST", 
@@ -37,7 +37,7 @@ function* fetchSong(action) {
 }
 function* deleteTrack(action) {
     try {
-      yield axios.delete(`api/song/${action.payload}`) 
+      yield axios.delete(`http://73.37.215.93:2550/api/song/${action.payload}`) 
       yield put({
         type: "FETCH_USER_LIBRARY"
       })
